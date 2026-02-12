@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bounce Daily - v0</title>
+    <!-- Shared styles for plan cards, bottom sheets, overlays -->
+    <link rel="stylesheet" href="../styles.css">
+    <!-- v0-specific styles -->
+    <link rel="stylesheet" href="v0.css">
+</head>
+<body>
+    <!-- ========== SCREEN 1: Home / Booking Details ========== -->
+    <div class="v0-screen active" id="screen-booking">
+        <!-- Header -->
+        <div class="v0-header">
+            <img src="../bounce_daily_logo.png" alt="Bounce Daily" class="v0-header-logo">
+            <button class="v0-hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Page title -->
+        <div class="v0-page-title">Booking Details</div>
+
+        <!-- Booking card -->
+        <div class="v0-booking-card">
+            <!-- Info icon -->
+            <button class="v0-info-trigger" onclick="openExplainer()" aria-label="About Ride Streaks">i</button>
+
+            <!-- Tags -->
+            <div class="v0-tag-row">
+                <span class="v0-tag">High Speed Scooter</span>
+                <span class="v0-tag">KA 01 AV 2848</span>
+            </div>
+
+            <!-- Two-column body -->
+            <div class="v0-card-body">
+                <div class="v0-card-col">
+                    <div class="v0-card-label">Validity</div>
+                    <div class="v0-card-value">25 July, 5:28 PM</div>
+                    <div class="v0-countdown" id="v0-countdown">Booking expires until 14:17:28</div>
+                </div>
+                <div class="v0-card-col">
+                    <div class="v0-card-label">KM left</div>
+                    <div class="v0-km-value">127<span class="v0-km-unit">KM</span></div>
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="v0-card-actions">
+                <button class="v0-btn v0-btn-primary" onclick="goToPlans()">Renew Plan</button>
+                <button class="v0-btn v0-btn-secondary" onclick="alert('Top Up coming soon!')">Top Up</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== SCREEN 2: Plan Selection ========== -->
+    <div class="screen" id="screen-plans">
+        <div class="header">
+            <span class="back-btn" onclick="goToBooking()">&larr;</span>
+            <div class="header-content">
+                <div class="header-title">Select your plan</div>
+            </div>
+        </div>
+
+        <div class="bike-type-indicator">
+            <div class="bike-icon">🏍️</div>
+            <div class="bike-label">High Speed Plans</div>
+        </div>
+
+        <div class="container">
+            <!-- Recommended Plan -->
+            <div class="section-title">Recommended Plan</div>
+
+            <div class="hero-plan-card" data-duration="7day" data-price="1749">
+                <div class="hero-radio"></div>
+                <div class="hero-content">
+                    <div class="hero-left">
+                        <div class="hero-duration">7 Day</div>
+                        <div class="hero-details">₹250/day &bull; Unlimited km</div>
+                    </div>
+                    <div class="hero-badge">₹1749/week</div>
+                </div>
+                <div class="hero-cta-container">
+                    <button class="hero-cta-btn">Select KM</button>
+                </div>
+            </div>
+
+            <!-- Other Plans -->
+            <div class="section-title">Other plans</div>
+
+            <div class="plan-card" data-duration="3day" data-price="900">
+                <div class="plan-card-main">
+                    <div class="plan-radio"></div>
+                    <div class="plan-left">
+                        <div class="plan-duration">3 Day</div>
+                        <div class="plan-details">₹300/day &bull; 300 km</div>
+                    </div>
+                    <div class="plan-price-box">
+                        <div class="plan-price">₹900</div>
+                        <div class="plan-price-label">total</div>
+                    </div>
+                </div>
+                <div class="plan-cta-container">
+                    <button class="plan-cta-btn">Select KM</button>
+                </div>
+            </div>
+
+            <div class="plan-card" data-duration="14day" data-price="3799">
+                <div class="plan-card-main">
+                    <div class="plan-radio"></div>
+                    <div class="plan-left">
+                        <div class="plan-duration">14 Day</div>
+                        <div class="plan-details">₹271/day &bull; 1400 km</div>
+                    </div>
+                    <div class="plan-price-box">
+                        <div class="plan-price">₹3799</div>
+                        <div class="plan-price-label">total</div>
+                    </div>
+                </div>
+                <div class="plan-cta-container">
+                    <button class="plan-cta-btn">Select KM</button>
+                </div>
+            </div>
+
+            <div class="plan-card" data-duration="1day" data-price="300">
+                <div class="plan-card-main">
+                    <div class="plan-radio"></div>
+                    <div class="plan-left">
+                        <div class="plan-duration">1 Day</div>
+                        <div class="plan-details">₹300/day &bull; 100 km</div>
+                    </div>
+                    <div class="plan-price-box">
+                        <div class="plan-price">₹300</div>
+                        <div class="plan-price-label">total</div>
+                    </div>
+                </div>
+                <div class="plan-cta-container">
+                    <button class="plan-cta-btn">Select KM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== BOTTOM SHEETS ========== -->
+    <div class="overlay" id="overlay" onclick="closeAllSheets()"></div>
+
+    <!-- 7 Day Options -->
+    <div class="review-sheet" id="sheet-7day">
+        <div class="sheet-handle"></div>
+        <h2 class="sheet-title">Choose Your 7-Day Plan</h2>
+
+        <div class="option-card" onclick="selectOption('7day', 1749, '₹250', '7 Days', 'Unlimited')">
+            <div class="option-badge">BEST VALUE</div>
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge unlimited">&infin; Unlimited KM</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹1749</h3>
+                    <p>₹250 &times; 7 days</p>
+                </div>
+            </div>
+            <div class="activation-note">
+                <div class="icon">🎁</div>
+                <div class="text">
+                    <strong>₹2000 Activation Pack</strong><br>
+                    One-time &bull; Unlocks lowest rent
+                </div>
+            </div>
+        </div>
+
+        <div class="option-card" onclick="selectOption('7day', 2299, '₹328', '7 Days', 'Unlimited')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge unlimited">&infin; Unlimited KM</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹2299</h3>
+                    <p>₹328 &times; 7 days</p>
+                </div>
+            </div>
+            <div class="no-activation">No activation pack needed</div>
+        </div>
+
+        <div class="option-card" onclick="selectOption('7day', 1749, '₹250', '7 Days', '700km')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge limited">700 km</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹1749</h3>
+                    <p>₹250 &times; 7 days</p>
+                </div>
+            </div>
+            <div class="activation-note">
+                <div class="icon">💰</div>
+                <div class="text">
+                    <strong>₹1000 One-time fee</strong><br>
+                    For reduced weekly rent
+                </div>
+            </div>
+        </div>
+
+        <div class="option-card" onclick="selectOption('7day', 1999, '₹286', '7 Days', '700km')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge limited">700 km</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹1999</h3>
+                    <p>₹286 &times; 7 days</p>
+                </div>
+            </div>
+            <div class="no-activation">No activation pack needed</div>
+        </div>
+
+        <div class="sheet-footer">💡 Onboarding & security deposit same for all plans</div>
+    </div>
+
+    <!-- 3 Day Options -->
+    <div class="review-sheet" id="sheet-3day">
+        <div class="sheet-handle"></div>
+        <h2 class="sheet-title">Choose Your 3-Day Plan</h2>
+
+        <div class="option-card" onclick="selectOption('3day', 900, '₹300', '3 Days', 'Unlimited')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge unlimited">&infin; Unlimited KM</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹900</h3>
+                    <p>₹300 &times; 3 days</p>
+                </div>
+            </div>
+            <div class="activation-note">
+                <div class="icon">🎁</div>
+                <div class="text">
+                    <strong>₹2000 Activation Pack</strong><br>
+                    One-time &bull; Unlocks lowest rent
+                </div>
+            </div>
+        </div>
+
+        <div class="option-card" onclick="selectOption('3day', 1029, '₹343', '3 Days', 'Unlimited')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge unlimited">&infin; Unlimited KM</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹1029</h3>
+                    <p>₹343 &times; 3 days</p>
+                </div>
+            </div>
+            <div class="no-activation">No activation pack needed</div>
+        </div>
+
+        <div class="option-card" onclick="selectOption('3day', 900, '₹300', '3 Days', '300km')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge limited">300 km</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹900</h3>
+                    <p>₹300 &times; 3 days</p>
+                </div>
+            </div>
+            <div class="no-activation">No activation pack needed</div>
+        </div>
+
+        <div class="sheet-footer">💡 Onboarding & security deposit same for all plans</div>
+    </div>
+
+    <!-- 14 Day Options -->
+    <div class="review-sheet" id="sheet-14day">
+        <div class="sheet-handle"></div>
+        <h2 class="sheet-title">Choose Your 14-Day Plan</h2>
+
+        <div class="option-card" onclick="selectOption('14day', 3799, '₹271', '14 Days', '1400km')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge limited">1400 km</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹3799</h3>
+                    <p>₹271 &times; 14 days</p>
+                </div>
+            </div>
+            <div class="no-activation">No activation pack needed</div>
+        </div>
+
+        <div class="sheet-footer">💡 Onboarding & security deposit same for all plans</div>
+    </div>
+
+    <!-- 1 Day Options -->
+    <div class="review-sheet" id="sheet-1day">
+        <div class="sheet-handle"></div>
+        <h2 class="sheet-title">Choose Your 1-Day Plan</h2>
+
+        <div class="option-card" onclick="selectOption('1day', 300, '₹300', '1 Day', '100km')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge limited">100 km</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹300</h3>
+                    <p>₹300 &times; 1 day</p>
+                </div>
+            </div>
+            <div class="no-activation">No activation pack needed</div>
+        </div>
+
+        <div class="sheet-footer">💡 Onboarding & security deposit same for all plans</div>
+    </div>
+
+    <!-- Review Confirmation -->
+    <div class="review-sheet" id="review-confirmation">
+        <div class="sheet-handle"></div>
+        <h2 class="sheet-title">Review Your Ride Plan</h2>
+
+        <div class="review-section">
+            <div class="review-section-title">Bike Selected</div>
+            <div class="review-row">
+                <div class="review-label">Hub</div>
+                <div class="review-value">Name of the Hub</div>
+            </div>
+            <div class="review-row">
+                <div class="review-label">Bike Selected</div>
+                <div class="review-value" id="review-bike">High Speed</div>
+            </div>
+            <div class="review-row">
+                <div class="review-label">Driving License</div>
+                <div class="review-value success">NOT REQUIRED</div>
+            </div>
+        </div>
+
+        <div class="review-section">
+            <div class="review-section-title">Plan Selected</div>
+            <div class="review-row">
+                <div class="review-label">Plan</div>
+                <div class="review-value price" id="review-plan-price">₹270/day</div>
+            </div>
+            <div class="review-row">
+                <div class="review-label">Validity</div>
+                <div class="review-value" id="review-validity">14 Days</div>
+            </div>
+            <div class="review-row">
+                <div class="review-label">Distance</div>
+                <div class="review-value" id="review-distance">1400km</div>
+            </div>
+        </div>
+
+        <div class="total-amount">
+            <div class="total-label">Total Amount</div>
+            <div class="total-price" id="review-total">₹3799</div>
+        </div>
+
+        <button class="cta-button" onclick="confirmPlan()">Confirm</button>
+    </div>
+
+    <!-- ========== EXPLAINER MODAL ========== -->
+    <div class="v0-explainer-overlay" id="v0ExplainerOverlay" onclick="closeExplainer()"></div>
+    <div class="v0-explainer-sheet" id="v0ExplainerSheet">
+        <div class="v0-explainer-handle"></div>
+        <div class="v0-explainer-header">
+            <h2 class="v0-explainer-title">About Ride Streaks</h2>
+            <button class="v0-explainer-close" onclick="closeExplainer()">&times;</button>
+        </div>
+
+        <p class="v0-explainer-subtitle">Keep riding continuously to unlock lower rates:</p>
+
+        <!-- Tier cards -->
+        <div class="v0-tier-card">
+            <div class="v0-tier-flames">
+                <span class="v0-flame v0-flame--orange">🔥</span>
+            </div>
+            <div class="v0-tier-days">30 days</div>
+            <div class="v0-tier-price">₹285/day</div>
+        </div>
+
+        <div class="v0-tier-card">
+            <div class="v0-tier-flames">
+                <span class="v0-flame v0-flame--orange">🔥</span>
+                <span class="v0-flame v0-flame--orange">🔥</span>
+            </div>
+            <div class="v0-tier-days">60 days</div>
+            <div class="v0-tier-price">₹270/day</div>
+        </div>
+
+        <div class="v0-tier-card v0-tier-card--highlighted">
+            <div class="v0-tier-flames">
+                <span class="v0-flame v0-flame--orange">🔥</span>
+                <span class="v0-flame v0-flame--orange">🔥</span>
+                <span class="v0-flame v0-flame--orange">🔥</span>
+            </div>
+            <div class="v0-tier-days">90 days</div>
+            <div class="v0-tier-price">₹255/day</div>
+        </div>
+
+        <!-- Info box -->
+        <div class="v0-info-box">
+            <span class="v0-info-box-icon">🔥</span>
+            <div class="v0-info-box-content">
+                <strong>More flames = Better rate</strong>
+                <p>Your discount applies automatically</p>
+            </div>
+        </div>
+
+        <!-- Warning box -->
+        <div class="v0-warning-box">
+            <span class="v0-warning-box-icon">⚠️</span>
+            <span class="v0-warning-box-text">Returning your scooter resets your streak to ₹300/day</span>
+        </div>
+
+        <button class="v0-got-it-btn" onclick="closeExplainer()">Got It!</button>
+    </div>
+
+    <!-- Script -->
+    <script src="v0-app.js"></script>
+</body>
+</html>
