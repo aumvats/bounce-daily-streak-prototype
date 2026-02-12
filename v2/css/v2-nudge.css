@@ -1,0 +1,60 @@
+/* ========== V2 NUDGE TOASTS ========== */
+.v2-nudge {
+    position: fixed;
+    top: -100px;
+    left: 16px;
+    right: 16px;
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: var(--v2-radius-lg);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border-left: 4px solid var(--v2-tier-active-start);
+    z-index: 3000;
+    transition: top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.v2-nudge.is-visible {
+    top: 16px;
+}
+
+.v2-nudge__icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.v2-nudge__content {
+    flex: 1;
+    min-width: 0;
+}
+
+.v2-nudge__text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--v2-text-primary);
+    line-height: 1.4;
+}
+
+.v2-nudge__close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--v2-text-tertiary);
+    cursor: pointer;
+    padding: 4px;
+    min-width: var(--v2-touch-min);
+    min-height: var(--v2-touch-min);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.v2-nudge__close:active {
+    color: var(--v2-text-secondary);
+}

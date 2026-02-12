@@ -1,0 +1,265 @@
+/* ========== V2 CELEBRATION POPUP ========== */
+.v2-celebration {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, #FFF8F0 0%, #FFFDF9 40%, #FFF5EB 100%);
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    overflow-y: auto;
+}
+
+.v2-celebration.is-active {
+    display: flex;
+    animation: v2-celebration-enter 0.5s ease-out;
+}
+
+.v2-celebration__confetti {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.v2-celebration__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    max-width: 360px;
+    width: 100%;
+}
+
+/* Flame Container */
+.v2-celebration__flame-container {
+    position: relative;
+    margin-bottom: 8px;
+    animation: v2-flame-grow 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s both;
+}
+
+.v2-celebration__flame {
+    width: 140px;
+    height: 140px;
+    display: block;
+    animation: v2-float 3s ease-in-out infinite;
+}
+
+.v2-celebration__tier-ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 3px solid var(--v2-tier-active-start);
+    opacity: 0.2;
+    animation: v2-hero-glow-pulse 3s ease-in-out infinite;
+}
+
+/* Count */
+.v2-celebration__count-container {
+    animation: v2-count-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s both;
+}
+
+.v2-celebration__count {
+    font-size: 80px;
+    font-weight: 900;
+    font-family: var(--v2-font-rounded);
+    background: linear-gradient(135deg, var(--v2-tier-active-start), var(--v2-tier-active-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -4px;
+    line-height: 1;
+    display: block;
+}
+
+.v2-celebration__count-label {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--v2-text-secondary);
+    letter-spacing: -0.3px;
+}
+
+/* Title */
+.v2-celebration__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--v2-text-primary);
+    text-align: center;
+    margin-top: 12px;
+    animation: v2-text-fade-up 0.4s ease-out 0.6s both;
+}
+
+/* Social proof */
+.v2-celebration__social-proof {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--v2-text-secondary);
+    background: var(--v2-tier-active-bg);
+    border: 1px solid var(--v2-tier-active-border);
+    border-radius: var(--v2-radius-full);
+    padding: 8px 16px;
+    margin-top: 12px;
+    animation: v2-text-fade-up 0.4s ease-out 0.8s both;
+}
+
+/* Steps */
+.v2-celebration__step {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.v2-celebration__step.is-visible {
+    display: flex;
+}
+
+/* Gift box */
+.v2-celebration__gift-box {
+    width: 120px;
+    height: 120px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #FFE0B2 0%, #FFCC80 100%);
+    border: 3px solid #FFB74D;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    animation: v2-gift-wobble 2s ease-in-out infinite;
+    box-shadow: 0 8px 32px rgba(255, 183, 77, 0.3);
+    transition: transform 0.3s;
+    margin-top: 24px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.v2-celebration__gift-box:active {
+    transform: scale(0.9);
+}
+
+.v2-celebration__gift-box.is-opened {
+    animation: v2-gift-open 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    pointer-events: none;
+}
+
+.v2-celebration__gift-lid {
+    font-size: 48px;
+    transition: transform 0.3s;
+    line-height: 1;
+}
+
+.v2-celebration__gift-box.is-opened .v2-celebration__gift-lid {
+    animation: v2-lid-fly 0.5s ease-out forwards;
+}
+
+.v2-celebration__gift-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #B45309;
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+}
+
+/* Savings card */
+.v2-celebration__savings-card {
+    background: white;
+    border-radius: var(--v2-radius-xl);
+    padding: 24px;
+    box-shadow: var(--v2-shadow-lg);
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    animation: v2-savings-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.v2-celebration__savings-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--v2-tier-active-start), var(--v2-tier-active-end));
+    color: white;
+    padding: 6px 16px;
+    border-radius: var(--v2-radius-full);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+}
+
+.v2-celebration__price-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.v2-celebration__price-old {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--v2-text-tertiary);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--v2-missed);
+}
+
+.v2-celebration__price-arrow {
+    font-size: 20px;
+    color: var(--v2-text-tertiary);
+}
+
+.v2-celebration__price-new {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--v2-success);
+    letter-spacing: -1px;
+}
+
+.v2-celebration__savings-amount {
+    font-size: 15px;
+    color: var(--v2-success);
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* CTA */
+.v2-celebration__cta {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--v2-tier-active-start), var(--v2-tier-active-end));
+    color: white;
+    border: none;
+    border-radius: var(--v2-radius-lg);
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: var(--v2-touch-min);
+    box-shadow: 0 4px 20px var(--v2-tier-active-glow);
+    margin-top: 24px;
+    transition: transform 0.2s;
+    letter-spacing: -0.3px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.v2-celebration__cta:active {
+    transform: scale(0.97);
+}
+
+.v2-celebration__skip {
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: var(--v2-text-tertiary);
+    cursor: pointer;
+    padding: 12px 16px;
+    min-height: var(--v2-touch-min);
+    margin-top: 8px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.v2-celebration__skip:active {
+    color: var(--v2-text-secondary);
+}

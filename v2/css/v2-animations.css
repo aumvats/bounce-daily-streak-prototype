@@ -1,0 +1,152 @@
+/* ========== V2 ANIMATION KEYFRAMES ========== */
+
+/* === BADGE === */
+@keyframes v2-badge-pulse {
+    0% { box-shadow: 0 0 0 0 var(--v2-tier-active-glow); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+}
+
+@keyframes v2-badge-pop {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.2); }
+    60% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+@keyframes v2-badge-shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+/* === CELEBRATION === */
+@keyframes v2-celebration-enter {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes v2-flame-grow {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes v2-count-pop {
+    from { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.08); }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes v2-text-fade-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes v2-gift-wobble {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    15% { transform: rotate(-4deg) scale(1.02); }
+    30% { transform: rotate(4deg) scale(1.02); }
+    45% { transform: rotate(-3deg) scale(1.01); }
+    60% { transform: rotate(3deg) scale(1.01); }
+    75% { transform: rotate(-1deg); }
+}
+
+@keyframes v2-gift-open {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.15) rotate(-5deg); }
+    60% { transform: scale(0.9) rotate(3deg); }
+    100% { transform: scale(0) rotate(10deg); opacity: 0; }
+}
+
+@keyframes v2-lid-fly {
+    0% { transform: translateY(0) rotate(0); opacity: 1; }
+    100% { transform: translateY(-80px) rotate(25deg); opacity: 0; }
+}
+
+@keyframes v2-savings-pop {
+    from { transform: scale(0.8) translateY(20px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* === DASHBOARD === */
+@keyframes v2-dashboard-slide-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes v2-dashboard-slide-down {
+    from { transform: translateY(0); }
+    to { transform: translateY(100%); }
+}
+
+@keyframes v2-hero-glow-pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+@keyframes v2-today-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 var(--v2-tier-active-glow); }
+    50% { box-shadow: 0 0 0 6px rgba(0, 0, 0, 0); }
+}
+
+@keyframes v2-node-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px var(--v2-tier-active-glow), 0 4px 12px rgba(0, 0, 0, 0.08); }
+    50% { box-shadow: 0 0 0 8px rgba(0, 0, 0, 0), 0 4px 12px rgba(0, 0, 0, 0.08); }
+}
+
+@keyframes v2-you-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+@keyframes v2-cell-appear {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* === PRICING === */
+@keyframes v2-price-reveal {
+    0% { opacity: 0; transform: scale(0.8); filter: blur(4px); }
+    60% { opacity: 1; transform: scale(1.05); filter: blur(0); }
+    100% { transform: scale(1); }
+}
+
+@keyframes v2-sparkle-float {
+    0%, 100% { opacity: 0.3; transform: translateY(0) scale(0.8); }
+    50% { opacity: 1; transform: translateY(-4px) scale(1.2); }
+}
+
+@keyframes v2-savings-fade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === NUDGE === */
+@keyframes v2-nudge-enter {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* === UTILITY === */
+@keyframes v2-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes v2-shimmer-sweep {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+@keyframes v2-strikethrough {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* ========== REDUCED MOTION ========== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

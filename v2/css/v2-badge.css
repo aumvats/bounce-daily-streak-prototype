@@ -1,0 +1,151 @@
+/* ========== V2 STREAK BADGE ========== */
+.v2-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, var(--v2-tier-active-start), var(--v2-tier-active-end));
+    padding: 8px 14px 8px 16px;
+    border-radius: var(--v2-radius-full);
+    border: none;
+    cursor: pointer;
+    min-height: var(--v2-touch-min);
+    position: relative;
+    box-shadow: 0 2px 12px var(--v2-tier-active-glow);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.6s ease;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.v2-badge::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--v2-radius-full);
+    box-shadow: 0 0 0 0 var(--v2-tier-active-glow);
+    animation: v2-badge-pulse 2.5s ease-out infinite;
+    pointer-events: none;
+}
+
+.v2-badge:active {
+    transform: scale(0.92);
+}
+
+.v2-badge__count {
+    font-size: 16px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.5px;
+    line-height: 1;
+    font-family: var(--v2-font-rounded);
+}
+
+.v2-badge__flame-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.v2-badge__lottie {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    flex-shrink: 0;
+    display: block;
+    transition: filter 0.6s;
+}
+
+/* Tier-based Lottie sizing */
+[data-streak-tier="redorange"] .v2-badge__flame-wrap { width: 26px; height: 26px; }
+[data-streak-tier="redorange"] .v2-badge__lottie { width: 26px; height: 26px; min-width: 26px; min-height: 26px; }
+
+[data-streak-tier="blue"] .v2-badge__flame-wrap { width: 28px; height: 28px; }
+[data-streak-tier="blue"] .v2-badge__lottie { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
+
+[data-streak-tier="purple"] .v2-badge__flame-wrap { width: 30px; height: 30px; }
+[data-streak-tier="purple"] .v2-badge__lottie { width: 30px; height: 30px; min-width: 30px; min-height: 30px; }
+
+[data-streak-tier="gold"] .v2-badge__flame-wrap { width: 32px; height: 32px; }
+[data-streak-tier="gold"] .v2-badge__lottie { width: 32px; height: 32px; min-width: 32px; min-height: 32px; }
+
+/* Gold tier shimmer */
+[data-streak-tier="gold"] .v2-badge {
+    background-size: 200% auto;
+    background-image: linear-gradient(
+        135deg,
+        var(--v2-tier-gold-start) 0%,
+        #FFF8DC 40%,
+        var(--v2-tier-gold-end) 60%,
+        var(--v2-tier-gold-start) 100%
+    );
+    animation: v2-badge-shimmer 3s linear infinite;
+}
+
+/* Purple tier subtle shimmer */
+[data-streak-tier="purple"] .v2-badge {
+    background-size: 200% auto;
+    background-image: linear-gradient(
+        135deg,
+        var(--v2-tier-purple-start) 0%,
+        #C084FC 40%,
+        var(--v2-tier-purple-end) 60%,
+        var(--v2-tier-purple-start) 100%
+    );
+    animation: v2-badge-shimmer 4s linear infinite;
+}
+
+.v2-badge__sparkles {
+    position: absolute;
+    inset: -4px;
+    pointer-events: none;
+}
+
+/* Sparkle dots for blue+ tiers */
+[data-streak-tier="blue"] .v2-badge__sparkles::before,
+[data-streak-tier="blue"] .v2-badge__sparkles::after,
+[data-streak-tier="purple"] .v2-badge__sparkles::before,
+[data-streak-tier="purple"] .v2-badge__sparkles::after,
+[data-streak-tier="gold"] .v2-badge__sparkles::before,
+[data-streak-tier="gold"] .v2-badge__sparkles::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: white;
+    animation: v2-sparkle-float 2s ease-in-out infinite;
+}
+
+[data-streak-tier="blue"] .v2-badge__sparkles::before,
+[data-streak-tier="purple"] .v2-badge__sparkles::before,
+[data-streak-tier="gold"] .v2-badge__sparkles::before {
+    top: -2px;
+    right: 2px;
+    animation-delay: 0s;
+}
+
+[data-streak-tier="blue"] .v2-badge__sparkles::after,
+[data-streak-tier="purple"] .v2-badge__sparkles::after,
+[data-streak-tier="gold"] .v2-badge__sparkles::after {
+    bottom: -1px;
+    left: 4px;
+    animation-delay: 0.7s;
+}
+
+.v2-badge__tier-label {
+    display: none;
+}
+
+/* Badge pop animation class (added by JS) */
+.v2-badge--pop {
+    animation: v2-badge-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Hide badge when no streak */
+.v2-badge[data-hidden="true"] {
+    display: none;
+}

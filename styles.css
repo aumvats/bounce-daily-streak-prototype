@@ -1,0 +1,900 @@
+/* ========== BASE RESET ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    background: #f2f2f7;
+    color: #1d1d1f;
+    overflow-x: hidden;
+}
+
+/* ========== SCREEN CONTAINER ========== */
+.screen {
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    animation: slideIn 0.3s ease-out;
+}
+
+.screen.active {
+    display: flex;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* ========== HEADER ========== */
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.back-btn {
+    font-size: 24px;
+    color: #ed3833;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.back-btn:active {
+    opacity: 0.6;
+}
+
+.header-content {
+    flex: 1;
+}
+
+.header-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1d1d1f;
+    letter-spacing: -0.3px;
+}
+
+.header-subtitle {
+    font-size: 13px;
+    color: #86868b;
+    margin-top: 2px;
+    letter-spacing: -0.1px;
+}
+
+/* ========== COMMON ========== */
+.container {
+    padding: 20px;
+    flex: 1;
+    padding-bottom: 100px;
+}
+
+/* ========== SCREEN 1: SCOOTER SELECTION ========== */
+.scooter-image {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.scooter-image img {
+    width: 200px;
+    height: auto;
+}
+
+.scooter-placeholder {
+    width: 200px;
+    height: 140px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #ed3833 0%, #f25c4a 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+}
+
+.scooter-card {
+    background: white;
+    border-radius: 16px;
+    padding: 0;
+    margin-bottom: 16px;
+    border: 2px solid #e5e5ea;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.scooter-card.selected {
+    border-color: #ed3833;
+    box-shadow: 0 4px 20px rgba(237, 56, 51, 0.15);
+}
+
+.scooter-header {
+    background: linear-gradient(135deg, #ed3833 0%, #d42f2a 100%);
+    color: white;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.scooter-details {
+    padding: 16px 20px;
+}
+
+.scooter-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 0.5px solid #f0f0f0;
+}
+
+.scooter-row:last-child {
+    border-bottom: none;
+}
+
+.scooter-row .label {
+    font-size: 15px;
+    color: #1d1d1f;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.scooter-row .label::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: #f2f2f7;
+    border-radius: 6px;
+}
+
+.scooter-row .value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+.scooter-action {
+    padding: 16px 20px 20px;
+}
+
+.scooter-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+}
+
+.scooter-btn.primary {
+    background: #ed3833;
+    color: white;
+}
+
+.scooter-btn.secondary {
+    background: white;
+    color: #ed3833;
+    border: 2px solid #ed3833;
+}
+
+.scooter-btn:active {
+    transform: scale(0.97);
+}
+
+/* Bike Type Indicator */
+.bike-type-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    margin: 0 20px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(237, 56, 51, 0.2);
+}
+
+.bike-icon {
+    font-size: 24px;
+}
+
+.bike-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1d1d1f;
+    letter-spacing: -0.3px;
+}
+
+/* ========== SCREEN 2: PLAN SELECTION ========== */
+.section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin: 0 20px 12px;
+    letter-spacing: -0.2px;
+}
+
+/* Hero Plan Card */
+.hero-plan-card {
+    background: linear-gradient(135deg, #ed3833 0%, #d42f2a 100%);
+    border-radius: 20px;
+    padding: 24px;
+    margin: 0 20px 20px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(237, 56, 51, 0.28);
+    transition: all 0.3s;
+}
+
+.hero-radio {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transition: all 0.3s;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 2;
+}
+
+.hero-plan-card.selected .hero-radio {
+    border-color: white;
+    background: white;
+    position: absolute;
+}
+
+.hero-plan-card.selected .hero-radio::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background: #ed3833;
+    border-radius: 50%;
+}
+
+.hero-plan-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+}
+
+.hero-plan-card:active {
+    transform: scale(0.985);
+}
+
+.hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    padding-right: 40px;
+}
+
+.hero-left {
+    flex: 1;
+}
+
+.hero-duration {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.6px;
+    margin-bottom: 4px;
+}
+
+.hero-details {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    letter-spacing: -0.2px;
+}
+
+.hero-badge {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 0.5px solid rgba(255, 255, 255, 0.3);
+    white-space: nowrap;
+}
+
+/* Hero CTA */
+.hero-cta-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, margin-top 0.3s ease-out;
+    margin-top: 0;
+}
+
+.hero-plan-card.selected .hero-cta-container {
+    max-height: 80px;
+    margin-top: 20px;
+}
+
+.hero-cta-btn {
+    width: 100%;
+    padding: 14px;
+    background: white;
+    color: #ed3833;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.hero-cta-btn:active {
+    transform: scale(0.97);
+    background: #f5f5f5;
+}
+
+/* Regular Plan Cards */
+.plan-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin: 0 20px 12px;
+    border: 2px solid #e5e5ea;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.plan-card-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.plan-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d1d1d6;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.3s;
+    background: white;
+}
+
+.plan-card.selected .plan-radio {
+    border-color: #ed3833;
+    background: #ed3833;
+    position: relative;
+}
+
+.plan-card.selected .plan-radio::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+}
+
+.plan-card:active {
+    transform: scale(0.98);
+}
+
+.plan-card.selected {
+    border-color: #ed3833;
+    box-shadow: 0 4px 20px rgba(237, 56, 51, 0.15);
+}
+
+.plan-cta-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, margin-top 0.3s ease-out;
+    margin-top: 0;
+}
+
+.plan-card.selected .plan-cta-container {
+    max-height: 80px;
+    margin-top: 16px;
+}
+
+.plan-cta-btn {
+    width: 100%;
+    padding: 14px;
+    background: #ed3833;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.plan-cta-btn:active {
+    transform: scale(0.97);
+    background: #c9271f;
+}
+
+.plan-left {
+    flex: 1;
+}
+
+.plan-duration {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1d1d1f;
+    letter-spacing: -0.4px;
+    margin-bottom: 4px;
+}
+
+.plan-details {
+    font-size: 13px;
+    color: #86868b;
+    letter-spacing: -0.1px;
+}
+
+.plan-price-box {
+    background: #f2f2f7;
+    padding: 12px 16px;
+    border-radius: 12px;
+    text-align: right;
+}
+
+.plan-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ed3833;
+    letter-spacing: -0.4px;
+}
+
+.plan-price-label {
+    font-size: 11px;
+    color: #86868b;
+    margin-top: 2px;
+}
+
+/* ========== BOTTOM SHEETS ========== */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    z-index: 998;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.review-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 24px 24px 0 0;
+    padding: 8px 20px 32px;
+    max-height: 85vh;
+    overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.15);
+}
+
+.review-sheet.active {
+    transform: translateY(0);
+}
+
+.sheet-handle {
+    width: 36px;
+    height: 5px;
+    background: #c7c7cc;
+    border-radius: 3px;
+    margin: 8px auto 20px;
+}
+
+.sheet-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin-bottom: 20px;
+    letter-spacing: -0.4px;
+}
+
+/* Option Cards in Sheets */
+.option-card {
+    background: white;
+    border: 1.5px solid #e5e5ea;
+    border-radius: 16px;
+    padding: 20px 18px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.option-card:active {
+    transform: scale(0.98);
+}
+
+.option-card.selected {
+    border-color: #ed3833;
+    box-shadow: 0 0 0 2px #ed3833, 0 4px 16px rgba(237, 56, 51, 0.15);
+}
+
+.option-badge {
+    position: absolute;
+    top: -10px;
+    left: 18px;
+    background: linear-gradient(135deg, #ed3833 0%, #d42f2a 100%);
+    color: white;
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    box-shadow: 0 2px 8px rgba(237, 56, 51, 0.3);
+}
+
+.option-radio {
+    position: absolute;
+    top: 20px;
+    right: 18px;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #d1d1d6;
+    border-radius: 50%;
+    transition: all 0.3s;
+    background: white;
+}
+
+.option-card.selected .option-radio {
+    border-color: #ed3833;
+    background: #ed3833;
+}
+
+.option-card.selected .option-radio::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.option-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 40px;
+    margin-bottom: 14px;
+}
+
+.option-km-section {
+    flex: 1;
+}
+
+.option-pricing {
+    text-align: right;
+}
+
+.option-pricing h3 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1d1d1f;
+    line-height: 1;
+    margin-bottom: 4px;
+    letter-spacing: -0.8px;
+}
+
+.option-pricing p {
+    font-size: 13px;
+    color: #86868b;
+    letter-spacing: -0.1px;
+}
+
+.km-badge {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.1px;
+}
+
+.km-badge.unlimited {
+    background: linear-gradient(135deg, #ed3833 0%, #d42f2a 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(237, 56, 51, 0.25);
+}
+
+.km-badge.limited {
+    background: #f2f2f7;
+    color: #86868b;
+    border: 1px solid #e5e5ea;
+}
+
+.activation-note {
+    background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
+    border: 1px solid #ffe9a3;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.activation-note .icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.activation-note .text {
+    flex: 1;
+    font-size: 13px;
+    color: #1d1d1f;
+    line-height: 1.4;
+}
+
+.activation-note strong {
+    font-weight: 600;
+}
+
+.no-activation {
+    text-align: center;
+    font-size: 13px;
+    color: #86868b;
+    padding: 10px;
+    background: #f2f2f7;
+    border-radius: 8px;
+}
+
+.sheet-footer {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+    text-align: center;
+    font-size: 13px;
+    color: #86868b;
+}
+
+/* ========== REVIEW CONFIRMATION ========== */
+.review-section {
+    background: #fef1f0;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.review-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ed3833;
+    margin-bottom: 12px;
+    letter-spacing: -0.1px;
+}
+
+.review-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 15px;
+}
+
+.review-label {
+    color: #86868b;
+}
+
+.review-value {
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+.review-value.success {
+    color: #34c759;
+}
+
+.review-value.price {
+    color: #ed3833;
+    font-size: 17px;
+}
+
+.total-amount {
+    background: #f2f2f7;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-label {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+.total-price {
+    font-size: 24px;
+    font-weight: 800;
+    color: #ed3833;
+    letter-spacing: -0.8px;
+}
+
+/* ========== BOTTOM CTA ========== */
+.bottom-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 12px 20px 20px;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+    z-index: 100;
+}
+
+.cta-button {
+    width: 100%;
+    padding: 16px;
+    background: #ed3833;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: -0.3px;
+    box-shadow: 0 4px 16px rgba(237, 56, 51, 0.3);
+}
+
+.cta-button:active {
+    transform: scale(0.97);
+}
+
+.cta-button:disabled {
+    background: #d1d1d6;
+    color: #86868b;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* ========== DISCOUNT BADGES ON PLAN CARDS ========== */
+.streak-discount-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, #fff0ee, #fff5f5);
+    border: 1px solid rgba(237, 56, 51, 0.15);
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #ed3833;
+    margin-top: 6px;
+}
+
+.plan-price-original {
+    display: block;
+    font-size: 13px;
+    color: #86868b;
+    text-decoration: line-through;
+    text-decoration-color: rgba(237, 56, 51, 0.6);
+    text-decoration-thickness: 1.5px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.plan-price.discounted {
+    display: block;
+    color: #34c759;
+}
+
+.hero-price-original {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: line-through;
+    text-decoration-thickness: 1.5px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.hero-price-new {
+    display: block;
+}
+
+.hero-details-original {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: line-through;
+    text-decoration-color: rgba(237, 56, 51, 0.6);
+}
+
+.hero-discount-tag {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+}
+
+/* Option card discount styles */
+.option-price-original {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    color: #aeaeb2;
+    text-decoration: line-through;
+    text-decoration-color: rgba(237, 56, 51, 0.6);
+    text-decoration-thickness: 1.5px;
+    margin-bottom: 2px;
+}
+
+.option-price-new {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: #34c759;
+    letter-spacing: -0.8px;
+}
+
+.option-discount-tag {
+    display: inline-block;
+    background: rgba(237, 56, 51, 0.08);
+    color: #ed3833;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 6px;
+    letter-spacing: 0.3px;
+}

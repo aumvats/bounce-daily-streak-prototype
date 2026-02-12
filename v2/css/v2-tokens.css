@@ -1,0 +1,137 @@
+/* ========== V2 DESIGN TOKENS ========== */
+:root {
+    /* ===== FLAME TIER COLORS ===== */
+    /* Orange tier: 1-6 days */
+    --v2-tier-orange-start: #FF8C42;
+    --v2-tier-orange-end: #FF6B1A;
+    --v2-tier-orange-glow: rgba(255, 140, 66, 0.4);
+    --v2-tier-orange-bg: rgba(255, 140, 66, 0.08);
+    --v2-tier-orange-border: rgba(255, 140, 66, 0.2);
+
+    /* Red-Orange tier: 7-14 days */
+    --v2-tier-redorange-start: #FF4D2E;
+    --v2-tier-redorange-end: #E8381A;
+    --v2-tier-redorange-glow: rgba(255, 77, 46, 0.4);
+    --v2-tier-redorange-bg: rgba(255, 77, 46, 0.08);
+    --v2-tier-redorange-border: rgba(255, 77, 46, 0.2);
+
+    /* Blue tier: 15-29 days */
+    --v2-tier-blue-start: #4A9EFF;
+    --v2-tier-blue-end: #2563EB;
+    --v2-tier-blue-glow: rgba(74, 158, 255, 0.4);
+    --v2-tier-blue-bg: rgba(74, 158, 255, 0.08);
+    --v2-tier-blue-border: rgba(74, 158, 255, 0.2);
+
+    /* Purple tier: 30-59 days */
+    --v2-tier-purple-start: #A855F7;
+    --v2-tier-purple-end: #7C3AED;
+    --v2-tier-purple-glow: rgba(168, 85, 247, 0.4);
+    --v2-tier-purple-bg: rgba(168, 85, 247, 0.08);
+    --v2-tier-purple-border: rgba(168, 85, 247, 0.2);
+
+    /* Gold tier: 60+ days */
+    --v2-tier-gold-start: #FFD700;
+    --v2-tier-gold-end: #F59E0B;
+    --v2-tier-gold-glow: rgba(255, 215, 0, 0.5);
+    --v2-tier-gold-bg: rgba(255, 215, 0, 0.08);
+    --v2-tier-gold-border: rgba(255, 215, 0, 0.25);
+
+    /* ===== SEMANTIC COLORS ===== */
+    --v2-success: #34C759;
+    --v2-success-bg: rgba(52, 199, 89, 0.1);
+    --v2-missed: #FF3B30;
+    --v2-missed-bg: rgba(255, 59, 48, 0.08);
+    --v2-surface: #FFFFFF;
+    --v2-surface-secondary: #F7F7FA;
+    --v2-surface-elevated: #FFFFFF;
+    --v2-text-primary: #1A1A2E;
+    --v2-text-secondary: #6B7280;
+    --v2-text-tertiary: #9CA3AF;
+    --v2-border: #E5E7EB;
+    --v2-divider: #F0F0F5;
+
+    /* ===== TYPOGRAPHY ===== */
+    --v2-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    --v2-font-rounded: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', 'Nunito', Roboto, sans-serif;
+    --v2-fs-hero: 64px;
+    --v2-fs-h1: 28px;
+    --v2-fs-h2: 22px;
+    --v2-fs-h3: 17px;
+    --v2-fs-body: 15px;
+    --v2-fs-caption: 13px;
+    --v2-fs-micro: 11px;
+
+    /* ===== SPACING ===== */
+    --v2-space-xs: 4px;
+    --v2-space-sm: 8px;
+    --v2-space-md: 16px;
+    --v2-space-lg: 24px;
+    --v2-space-xl: 32px;
+    --v2-space-2xl: 48px;
+
+    /* ===== RADII ===== */
+    --v2-radius-sm: 8px;
+    --v2-radius-md: 12px;
+    --v2-radius-lg: 16px;
+    --v2-radius-xl: 20px;
+    --v2-radius-full: 100px;
+
+    /* ===== TOUCH TARGETS ===== */
+    --v2-touch-min: 44px;
+
+    /* ===== SHADOWS ===== */
+    --v2-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --v2-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --v2-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --v2-shadow-glow: 0 0 20px var(--v2-tier-active-glow, rgba(255, 140, 66, 0.4));
+}
+
+/* ===== TIER DATA ATTRIBUTE CLASSES ===== */
+[data-streak-tier="orange"] {
+    --v2-tier-active-start: var(--v2-tier-orange-start);
+    --v2-tier-active-end: var(--v2-tier-orange-end);
+    --v2-tier-active-glow: var(--v2-tier-orange-glow);
+    --v2-tier-active-bg: var(--v2-tier-orange-bg);
+    --v2-tier-active-border: var(--v2-tier-orange-border);
+}
+
+[data-streak-tier="redorange"] {
+    --v2-tier-active-start: var(--v2-tier-redorange-start);
+    --v2-tier-active-end: var(--v2-tier-redorange-end);
+    --v2-tier-active-glow: var(--v2-tier-redorange-glow);
+    --v2-tier-active-bg: var(--v2-tier-redorange-bg);
+    --v2-tier-active-border: var(--v2-tier-redorange-border);
+}
+
+[data-streak-tier="blue"] {
+    --v2-tier-active-start: var(--v2-tier-blue-start);
+    --v2-tier-active-end: var(--v2-tier-blue-end);
+    --v2-tier-active-glow: var(--v2-tier-blue-glow);
+    --v2-tier-active-bg: var(--v2-tier-blue-bg);
+    --v2-tier-active-border: var(--v2-tier-blue-border);
+}
+
+[data-streak-tier="purple"] {
+    --v2-tier-active-start: var(--v2-tier-purple-start);
+    --v2-tier-active-end: var(--v2-tier-purple-end);
+    --v2-tier-active-glow: var(--v2-tier-purple-glow);
+    --v2-tier-active-bg: var(--v2-tier-purple-bg);
+    --v2-tier-active-border: var(--v2-tier-purple-border);
+}
+
+[data-streak-tier="gold"] {
+    --v2-tier-active-start: var(--v2-tier-gold-start);
+    --v2-tier-active-end: var(--v2-tier-gold-end);
+    --v2-tier-active-glow: var(--v2-tier-gold-glow);
+    --v2-tier-active-bg: var(--v2-tier-gold-bg);
+    --v2-tier-active-border: var(--v2-tier-gold-border);
+}
+
+/* Default (no tier set) = orange */
+body:not([data-streak-tier]) {
+    --v2-tier-active-start: var(--v2-tier-orange-start);
+    --v2-tier-active-end: var(--v2-tier-orange-end);
+    --v2-tier-active-glow: var(--v2-tier-orange-glow);
+    --v2-tier-active-bg: var(--v2-tier-orange-bg);
+    --v2-tier-active-border: var(--v2-tier-orange-border);
+}

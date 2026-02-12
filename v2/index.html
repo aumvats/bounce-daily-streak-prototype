@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bounce Daily - Streak v2</title>
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.16/dist/dotlottie-wc.js" type="module"></script>
+    <!-- Shared base styles -->
+    <link rel="stylesheet" href="../styles.css">
+    <!-- V2 styles -->
+    <link rel="stylesheet" href="css/v2-tokens.css">
+    <link rel="stylesheet" href="css/v2-animations.css">
+    <link rel="stylesheet" href="css/v2-badge.css">
+    <link rel="stylesheet" href="css/v2-celebration.css">
+    <link rel="stylesheet" href="css/v2-dashboard.css">
+    <link rel="stylesheet" href="css/v2-pricing.css">
+    <link rel="stylesheet" href="css/v2-nudge.css">
+</head>
+<body>
+    <!-- SCREEN 1: Scooter Selection -->
+    <div class="screen active" id="screen-scooter">
+        <div class="header">
+            <span class="back-btn">&larr;</span>
+            <div class="header-content">
+                <div class="header-title">Select your scooter</div>
+                <div class="header-subtitle">Same scooter. Different speeds. Choose one.</div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="scooter-image">
+                <div class="scooter-placeholder">🛵</div>
+            </div>
+
+            <div class="scooter-card selected" id="scooter-high">
+                <div class="scooter-header">HIGH SPEED SCOOTER</div>
+                <div class="scooter-details">
+                    <div class="scooter-row">
+                        <div class="label">Driving License Required</div>
+                        <div class="value">YES</div>
+                    </div>
+                    <div class="scooter-row">
+                        <div class="label">Top Speed</div>
+                        <div class="value">60k mph</div>
+                    </div>
+                    <div class="scooter-row">
+                        <div class="label">Pricing Starts</div>
+                        <div class="value">Rs. X/day</div>
+                    </div>
+                </div>
+                <div class="scooter-action">
+                    <button class="scooter-btn primary">Selected</button>
+                </div>
+            </div>
+
+            <div class="scooter-card" id="scooter-low">
+                <div class="scooter-header" style="background: linear-gradient(135deg, #86868b 0%, #636366 100%);">LOW SPEED SCOOTER</div>
+                <div class="scooter-details">
+                    <div class="scooter-row">
+                        <div class="label">Driving License Required</div>
+                        <div class="value">NO</div>
+                    </div>
+                    <div class="scooter-row">
+                        <div class="label">Top Speed</div>
+                        <div class="value">25k mph</div>
+                    </div>
+                    <div class="scooter-row">
+                        <div class="label">Pricing Starts</div>
+                        <div class="value">Rs. X/day</div>
+                    </div>
+                </div>
+                <div class="scooter-action">
+                    <button class="scooter-btn secondary" onclick="selectScooter('low')">Select</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-cta">
+            <button class="cta-button" onclick="goToPlans()">Next</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: Plan Selection -->
+    <div class="screen" id="screen-plans">
+        <div class="header">
+            <span class="back-btn" onclick="goToScooter()">&larr;</span>
+            <div class="header-content">
+                <div class="header-title">Select your plan</div>
+            </div>
+            <!-- V2 Streak Badge -->
+            <button class="v2-badge" id="v2StreakBadge"
+                    aria-label="Your riding streak. Tap to see details."
+                    onclick="openDashboardV2()">
+                <span class="v2-badge__count" id="v2BadgeCount">15</span>
+                <span class="v2-badge__flame-wrap">
+                    <dotlottie-wc
+                        src="../Fire Streak Orange.lottie"
+                        autoplay loop
+                        class="v2-badge__lottie"
+                        id="v2BadgeLottie"
+                    ></dotlottie-wc>
+                    <span class="v2-badge__sparkles" aria-hidden="true"></span>
+                </span>
+            </button>
+        </div>
+
+        <div class="bike-type-indicator">
+            <div class="bike-icon">🏍️</div>
+            <div class="bike-label">High Speed Plans</div>
+        </div>
+
+        <div class="container">
+            <div class="section-title">Recommended Plan</div>
+
+            <div class="hero-plan-card" data-duration="7day" data-price="1749">
+                <div class="hero-radio"></div>
+                <div class="hero-content">
+                    <div class="hero-left">
+                        <div class="hero-duration">7 Day</div>
+                        <div class="hero-details">₹250/day &bull; Unlimited km</div>
+                    </div>
+                    <div class="hero-badge">₹1749/week</div>
+                </div>
+                <div class="hero-cta-container">
+                    <button class="hero-cta-btn">Select KM</button>
+                </div>
+            </div>
+
+            <div class="section-title">Other plans</div>
+
+            <div class="plan-card" data-duration="3day" data-price="900">
+                <div class="plan-card-main">
+                    <div class="plan-radio"></div>
+                    <div class="plan-left">
+                        <div class="plan-duration">3 Day</div>
+                        <div class="plan-details">₹300/day &bull; 300 km</div>
+                    </div>
+                    <div class="plan-price-box">
+                        <div class="plan-price">₹900</div>
+                        <div class="plan-price-label">total</div>
+                    </div>
+                </div>
+                <div class="plan-cta-container">
+                    <button class="plan-cta-btn">Select KM</button>
+                </div>
+            </div>
+
+            <div class="plan-card" data-duration="14day" data-price="3799">
+                <div class="plan-card-main">
+                    <div class="plan-radio"></div>
+                    <div class="plan-left">
+                        <div class="plan-duration">14 Day</div>
+                        <div class="plan-details">₹271/day &bull; 1400 km</div>
+                    </div>
+                    <div class="plan-price-box">
+                        <div class="plan-price">₹3799</div>
+                        <div class="plan-price-label">total</div>
+                    </div>
+                </div>
+                <div class="plan-cta-container">
+                    <button class="plan-cta-btn">Select KM</button>
+                </div>
+            </div>
+
+            <div class="plan-card" data-duration="1day" data-price="300">
+                <div class="plan-card-main">
+                    <div class="plan-radio"></div>
+                    <div class="plan-left">
+                        <div class="plan-duration">1 Day</div>
+                        <div class="plan-details">₹300/day &bull; 100 km</div>
+                    </div>
+                    <div class="plan-price-box">
+                        <div class="plan-price">₹300</div>
+                        <div class="plan-price-label">total</div>
+                    </div>
+                </div>
+                <div class="plan-cta-container">
+                    <button class="plan-cta-btn">Select KM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== BOTTOM SHEETS (same as v1) ========== -->
+    <div class="overlay" id="overlay" onclick="closeAllSheets()"></div>
+
+    <!-- 7 Day Options -->
+    <div class="review-sheet" id="sheet-7day">
+        <div class="sheet-handle"></div>
+        <h2 class="sheet-title">Choose Your 7-Day Plan</h2>
+        <div class="option-card" onclick="selectOption('7day', 1749, '₹250', '7 Days', 'Unlimited')">
+            <div class="option-badge">BEST VALUE</div>
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge unlimited">∞ Unlimited KM</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹1749</h3>
+                    <p>₹250 × 7 days</p>
+                </div>
+            </div>
+            <div class="activation-note">
+                <div class="icon">🎁</div>
+                <div class="text">
+                    <strong>₹2000 Activation Pack</strong><br>
+                    One-time &bull; Unlocks lowest rent
+                </div>
+            </div>
+        </div>
+        <div class="option-card" onclick="selectOption('7day', 2299, '₹328', '7 Days', 'Unlimited')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge unlimited">∞ Unlimited KM</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹2299</h3>
+                    <p>₹328 × 7 days</p>
+                </div>
+            </div>
+            <div class="no-activation">No activation pack needed</div>
+        </div>
+        <div class="option-card" onclick="selectOption('7day', 1749, '₹250', '7 Days', '700km')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge limited">700 km</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹1749</h3>
+                    <p>₹250 × 7 days</p>
+                </div>
+            </div>
+            <div class="activation-note">
+                <div class="icon">💰</div>
+                <div class="text">
+                    <strong>₹1000 One-time fee</strong><br>
+                    For reduced weekly rent
+                </div>
+            </div>
+        </div>
+        <div class="option-card" onclick="selectOption('7day', 1999, '₹286', '7 Days', '700km')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section">
+                    <div class="km-badge limited">700 km</div>
+                </div>
+                <div class="option-pricing">
+                    <h3>₹1999</h3>
+                    <p>₹286 × 7 days</p>
+                </div>
+            </div>
+            <div class="no-activation">No activation pack needed</div>
+        </div>
+        <div class="sheet-footer">💡 Onboarding & security deposit same for all plans</div>
+    </div>
+
+    <!-- 3 Day Options -->
+    <div class="review-sheet" id="sheet-3day">
+        <div class="sheet-handle"></div>
+        <h2 class="sheet-title">Choose Your 3-Day Plan</h2>
+        <div class="option-card" onclick="selectOption('3day', 900, '₹300', '3 Days', 'Unlimited')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section"><div class="km-badge unlimited">∞ Unlimited KM</div></div>
+                <div class="option-pricing"><h3>₹900</h3><p>₹300 × 3 days</p></div>
+            </div>
+            <div class="activation-note">
+                <div class="icon">🎁</div>
+                <div class="text"><strong>₹2000 Activation Pack</strong><br>One-time &bull; Unlocks lowest rent</div>
+            </div>
+        </div>
+        <div class="option-card" onclick="selectOption('3day', 1029, '₹343', '3 Days', 'Unlimited')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section"><div class="km-badge unlimited">∞ Unlimited KM</div></div>
+                <div class="option-pricing"><h3>₹1029</h3><p>₹343 × 3 days</p></div>
+            </div>
+            <div class="no-activation">No activation pack needed</div>
+        </div>
+        <div class="option-card" onclick="selectOption('3day', 900, '₹300', '3 Days', '300km')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section"><div class="km-badge limited">300 km</div></div>
+                <div class="option-pricing"><h3>₹900</h3><p>₹300 × 3 days</p></div>
+            </div>
+            <div class="no-activation">No activation pack needed</div>
+        </div>
+        <div class="sheet-footer">💡 Onboarding & security deposit same for all plans</div>
+    </div>
+
+    <!-- 14 Day Options -->
+    <div class="review-sheet" id="sheet-14day">
+        <div class="sheet-handle"></div>
+        <h2 class="sheet-title">Choose Your 14-Day Plan</h2>
+        <div class="option-card" onclick="selectOption('14day', 3799, '₹271', '14 Days', '1400km')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section"><div class="km-badge limited">1400 km</div></div>
+                <div class="option-pricing"><h3>₹3799</h3><p>₹271 × 14 days</p></div>
+            </div>
+            <div class="no-activation">No activation pack needed</div>
+        </div>
+        <div class="sheet-footer">💡 Onboarding & security deposit same for all plans</div>
+    </div>
+
+    <!-- 1 Day Options -->
+    <div class="review-sheet" id="sheet-1day">
+        <div class="sheet-handle"></div>
+        <h2 class="sheet-title">Choose Your 1-Day Plan</h2>
+        <div class="option-card" onclick="selectOption('1day', 300, '₹300', '1 Day', '100km')">
+            <div class="option-radio"></div>
+            <div class="option-main">
+                <div class="option-km-section"><div class="km-badge limited">100 km</div></div>
+                <div class="option-pricing"><h3>₹300</h3><p>₹300 × 1 day</p></div>
+            </div>
+            <div class="no-activation">No activation pack needed</div>
+        </div>
+        <div class="sheet-footer">💡 Onboarding & security deposit same for all plans</div>
+    </div>
+
+    <!-- Review Confirmation -->
+    <div class="review-sheet" id="review-confirmation">
+        <div class="sheet-handle"></div>
+        <h2 class="sheet-title">Review Your Ride Plan</h2>
+        <div class="review-section">
+            <div class="review-section-title">Bike Selected</div>
+            <div class="review-row"><div class="review-label">Hub</div><div class="review-value">Name of the Hub</div></div>
+            <div class="review-row"><div class="review-label">Bike Selected</div><div class="review-value" id="review-bike">High Speed</div></div>
+            <div class="review-row"><div class="review-label">Driving License</div><div class="review-value success">NOT REQUIRED</div></div>
+        </div>
+        <div class="review-section">
+            <div class="review-section-title">Plan Selected</div>
+            <div class="review-row"><div class="review-label">Plan</div><div class="review-value price" id="review-plan-price">₹270/day</div></div>
+            <div class="review-row"><div class="review-label">Validity</div><div class="review-value" id="review-validity">14 Days</div></div>
+            <div class="review-row"><div class="review-label">Distance</div><div class="review-value" id="review-distance">1400km</div></div>
+        </div>
+        <div class="total-amount">
+            <div class="total-label">Total Amount</div>
+            <div class="total-price" id="review-total">₹3799</div>
+        </div>
+        <button class="cta-button" onclick="confirmPlan()">Confirm</button>
+    </div>
+
+    <!-- ========== V2 CELEBRATION POPUP ========== -->
+    <div class="v2-celebration" id="v2Celebration" role="dialog" aria-modal="true" aria-labelledby="v2CelebrationTitle">
+        <canvas id="v2ConfettiCanvas" class="v2-celebration__confetti" aria-hidden="true"></canvas>
+        <div class="v2-celebration__content">
+            <!-- Step 1: Achievement -->
+            <div class="v2-celebration__step v2-celebration__step--achievement is-visible" id="v2CelebStep1">
+                <div class="v2-celebration__flame-container">
+                    <dotlottie-wc src="../Streak.lottie" autoplay loop
+                        class="v2-celebration__flame" id="v2CelebLottie"></dotlottie-wc>
+                    <div class="v2-celebration__tier-ring" aria-hidden="true"></div>
+                </div>
+                <div class="v2-celebration__count-container">
+                    <span class="v2-celebration__count" id="v2CelebCount">0</span>
+                    <span class="v2-celebration__count-label">day streak!</span>
+                </div>
+                <h2 class="v2-celebration__title" id="v2CelebrationTitle"></h2>
+                <div class="v2-celebration__social-proof" id="v2SocialProof"></div>
+            </div>
+
+            <!-- Step 2: Gift box -->
+            <div class="v2-celebration__step v2-celebration__step--reward" id="v2CelebStep2">
+                <button class="v2-celebration__gift-box" id="v2GiftBox" aria-label="Tap to reveal your reward">
+                    <span class="v2-celebration__gift-lid" aria-hidden="true">🎁</span>
+                    <span class="v2-celebration__gift-label">Tap to open!</span>
+                </button>
+            </div>
+
+            <!-- Step 3: Discount reveal -->
+            <div class="v2-celebration__step v2-celebration__step--discount" id="v2CelebStep3">
+                <div class="v2-celebration__savings-card">
+                    <div class="v2-celebration__savings-tag" id="v2SavingsTag">10% OFF</div>
+                    <div class="v2-celebration__price-row">
+                        <span class="v2-celebration__price-old" id="v2PriceOld">₹1749</span>
+                        <span class="v2-celebration__price-arrow" aria-hidden="true">&rarr;</span>
+                        <span class="v2-celebration__price-new" id="v2PriceNew">₹1574</span>
+                    </div>
+                    <div class="v2-celebration__savings-amount" id="v2SavingsAmount">Aapne ₹175 bachaye! 🎉</div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <button class="v2-celebration__cta" id="v2CelebCTA">Discount Claim Karo 🔥</button>
+            <button class="v2-celebration__skip" id="v2CelebSkip">Baad mein dekhenge</button>
+        </div>
+    </div>
+
+    <!-- ========== V2 STREAK DASHBOARD ========== -->
+    <div class="v2-dashboard" id="v2Dashboard" role="dialog" aria-modal="true" aria-label="Your streak dashboard">
+        <div class="v2-dashboard__panel">
+            <div class="v2-dashboard__header">
+                <button class="v2-dashboard__close" id="v2DashClose" aria-label="Close dashboard">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <span class="v2-dashboard__header-title">Your Streak</span>
+                <img src="../bounce_daily_logo.png" alt="" class="v2-dashboard__logo">
+            </div>
+
+            <!-- Hero -->
+            <section class="v2-dashboard__hero">
+                <div class="v2-dashboard__hero-flame">
+                    <dotlottie-wc src="../Streak.lottie" autoplay loop
+                        class="v2-dashboard__hero-lottie" id="v2DashLottie"></dotlottie-wc>
+                    <div class="v2-dashboard__hero-glow" aria-hidden="true"></div>
+                </div>
+                <div class="v2-dashboard__hero-count" id="v2DashCount">15</div>
+                <div class="v2-dashboard__hero-label">day streak</div>
+                <div class="v2-dashboard__hero-tier" id="v2DashTier"></div>
+            </section>
+
+            <!-- Week Strip -->
+            <section class="v2-dashboard__week" aria-label="This week's activity">
+                <div class="v2-dashboard__week-title">This Week</div>
+                <div class="v2-dashboard__week-strip" id="v2WeekStrip"></div>
+            </section>
+
+            <!-- Heatmap -->
+            <section class="v2-dashboard__heatmap" aria-label="Monthly activity">
+                <div class="v2-dashboard__heatmap-header">
+                    <span class="v2-dashboard__heatmap-title" id="v2HeatmapTitle"></span>
+                    <div class="v2-dashboard__heatmap-legend">
+                        <span class="v2-dashboard__heatmap-legend-item">
+                            <span class="v2-dashboard__heatmap-dot v2-dashboard__heatmap-dot--active" aria-hidden="true"></span> Ride kiya
+                        </span>
+                        <span class="v2-dashboard__heatmap-legend-item">
+                            <span class="v2-dashboard__heatmap-dot v2-dashboard__heatmap-dot--missed" aria-hidden="true"></span> Miss hua
+                        </span>
+                    </div>
+                </div>
+                <div class="v2-dashboard__heatmap-labels" id="v2HeatmapLabels" aria-hidden="true"></div>
+                <div class="v2-dashboard__heatmap-grid" id="v2HeatmapGrid"></div>
+            </section>
+
+            <!-- Journey Road -->
+            <section class="v2-dashboard__journey" aria-label="Milestone rewards">
+                <div class="v2-dashboard__journey-title">Rewards Journey</div>
+                <div class="v2-dashboard__journey-road" id="v2JourneyRoad"></div>
+            </section>
+
+            <!-- Shield -->
+            <section class="v2-dashboard__shield" aria-label="Streak protection">
+                <div class="v2-dashboard__shield-card">
+                    <div class="v2-dashboard__shield-icon" aria-hidden="true">🛡️</div>
+                    <div class="v2-dashboard__shield-info">
+                        <div class="v2-dashboard__shield-title">Streak Shield</div>
+                        <div class="v2-dashboard__shield-desc">Miss hua? Shield use karo, streak safe rahega!</div>
+                    </div>
+                    <div class="v2-dashboard__shield-count" id="v2ShieldCount">
+                        <span class="v2-dashboard__shield-number">1</span>
+                        <span class="v2-dashboard__shield-label">available</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats -->
+            <section class="v2-dashboard__stats" aria-label="Streak statistics">
+                <div class="v2-dashboard__stat">
+                    <div class="v2-dashboard__stat-value" id="v2StatCurrent">15</div>
+                    <div class="v2-dashboard__stat-label">Current</div>
+                </div>
+                <div class="v2-dashboard__stat-divider" aria-hidden="true"></div>
+                <div class="v2-dashboard__stat">
+                    <div class="v2-dashboard__stat-value" id="v2StatLongest">22</div>
+                    <div class="v2-dashboard__stat-label">Longest</div>
+                </div>
+                <div class="v2-dashboard__stat-divider" aria-hidden="true"></div>
+                <div class="v2-dashboard__stat">
+                    <div class="v2-dashboard__stat-value" id="v2StatDiscount">10%</div>
+                    <div class="v2-dashboard__stat-label">Discount</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- ========== V2 NUDGE TOAST ========== -->
+    <div class="v2-nudge" id="v2Nudge" role="status" aria-live="polite">
+        <div class="v2-nudge__icon" aria-hidden="true">🔥</div>
+        <div class="v2-nudge__content">
+            <div class="v2-nudge__text" id="v2NudgeText"></div>
+        </div>
+        <button class="v2-nudge__close" aria-label="Dismiss" id="v2NudgeClose">&times;</button>
+    </div>
+
+    <!-- ========== V2 SCENARIO TOOLBAR ========== -->
+    <div class="scenario-toolbar" id="v2ScenarioToolbar">
+        <div class="scenario-toggle" onclick="document.getElementById('v2ScenarioToolbar').classList.toggle('expanded')">
+            <span class="scenario-toggle-icon">🎛️</span>
+        </div>
+        <div class="scenario-buttons" id="v2ScenarioButtons"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../confetti.js"></script>
+    <script src="js/v2-streak-config.js"></script>
+    <script src="js/v2-streak-badge.js"></script>
+    <script src="js/v2-celebration.js"></script>
+    <script src="js/v2-dashboard.js"></script>
+    <script src="js/v2-pricing.js"></script>
+    <script src="js/v2-nudge.js"></script>
+    <script src="js/v2-confetti.js"></script>
+    <script src="js/v2-scenarios.js"></script>
+    <script src="js/v2-app.js"></script>
+</body>
+</html>
