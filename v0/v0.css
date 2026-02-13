@@ -102,14 +102,10 @@ body {
     gap: 6px;
 }
 
-.v0-streak-flames {
-    display: flex;
-    gap: 1px;
-}
-
-.v0-streak-flame {
-    font-size: 18px;
-    line-height: 1;
+.v0-streak-lottie {
+    width: 24px;
+    height: 24px;
+    display: block;
 }
 
 .v0-streak-text {

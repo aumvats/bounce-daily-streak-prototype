@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../styles.css">
     <!-- v0-specific styles -->
     <link rel="stylesheet" href="v0.css">
+    <!-- Lottie player -->
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.16/dist/dotlottie-wc.js" type="module"></script>
 </head>
 <body>
     <!-- ========== SCREEN 1: Home / Booking Details ========== -->
@@ -30,7 +32,12 @@
             <!-- Streak badge + info icon row -->
             <div class="v0-streak-row" id="v0-streak-section">
                 <div class="v0-streak-badge">
-                    <span class="v0-streak-flames" id="v0-streak-flames"></span>
+                    <dotlottie-wc
+                        src="../Fire Streak Orange.lottie"
+                        autoplay loop
+                        class="v0-streak-lottie"
+                        id="v0-streak-lottie"
+                    ></dotlottie-wc>
                     <span class="v0-streak-text" id="v0-streak-count">0-day streak</span>
                 </div>
                 <button class="v0-info-trigger-circle" onclick="openExplainer()" aria-label="About Ride Streaks">

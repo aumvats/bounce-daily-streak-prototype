@@ -145,17 +145,15 @@ function startCountdown() {
 // ========== STREAK UI ==========
 function renderStreakBadge() {
     var el = document.getElementById('v0-streak-count');
-    var flamesEl = document.getElementById('v0-streak-flames');
-    if (!el || !flamesEl) return;
+    var lottie = document.getElementById('v0-streak-lottie');
+    if (!el) return;
 
     el.textContent = V0_STREAK.currentDays + '-day streak';
 
-    var count = getFlameCount();
-    var html = '';
-    for (var i = 0; i < count; i++) {
-        html += '<span class="v0-streak-flame">🔥</span>';
+    // Show/hide lottie based on streak
+    if (lottie) {
+        lottie.style.display = V0_STREAK.currentDays > 0 ? 'block' : 'none';
     }
-    flamesEl.innerHTML = html;
 
     // Hide streak section if 0 days
     var section = document.getElementById('v0-streak-section');
@@ -172,12 +170,14 @@ function renderProgressBar() {
     if (!barFill || !label || !priceLabel || !section) return;
 
     var tier = getStreakTier(V0_STREAK.currentDays);
+    var currentRate = getCurrentRate();
+    var savingsPct = Math.round(((V0_STREAK.baseRate - currentRate) / V0_STREAK.baseRate) * 100);
 
     if (!tier.next) {
         // Already at max tier
         barFill.style.width = '100%';
-        label.textContent = 'Max streak reached!';
-        priceLabel.textContent = '₹' + getCurrentRate() + '/day';
+        label.textContent = 'Saving ' + savingsPct + '% — max reached!';
+        priceLabel.textContent = '₹' + currentRate + '/day';
         return;
     }
 
@@ -189,7 +189,13 @@ function renderProgressBar() {
     barFill.style.width = progress + '%';
 
     var daysLeft = nextDays - V0_STREAK.currentDays;
-    label.textContent = daysLeft + ' more days to next rate drop';
+    var nextSavingsPct = Math.round(((V0_STREAK.baseRate - tier.next.rate) / V0_STREAK.baseRate) * 100);
+
+    if (savingsPct > 0) {
+        label.textContent = 'Saving ' + savingsPct + '% — next drop in ' + daysLeft + ' days';
+    } else {
+        label.textContent = daysLeft + ' more days to save ' + nextSavingsPct + '%';
+    }
     priceLabel.textContent = '₹' + tier.next.rate + '/day';
 }
 
