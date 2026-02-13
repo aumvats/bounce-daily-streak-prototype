@@ -176,8 +176,8 @@ function renderProgressBar() {
     if (!tier.next) {
         // Already at max tier
         barFill.style.width = '100%';
-        label.textContent = 'Saving ' + savingsPct + '% — max reached!';
-        priceLabel.textContent = '₹' + currentRate + '/day';
+        label.textContent = 'Max streak reached!';
+        priceLabel.textContent = 'Saving ' + savingsPct + '%';
         return;
     }
 
@@ -191,12 +191,8 @@ function renderProgressBar() {
     var daysLeft = nextDays - V0_STREAK.currentDays;
     var nextSavingsPct = Math.round(((V0_STREAK.baseRate - tier.next.rate) / V0_STREAK.baseRate) * 100);
 
-    if (savingsPct > 0) {
-        label.textContent = 'Saving ' + savingsPct + '% — next drop in ' + daysLeft + ' days';
-    } else {
-        label.textContent = daysLeft + ' more days to save ' + nextSavingsPct + '%';
-    }
-    priceLabel.textContent = '₹' + tier.next.rate + '/day';
+    label.textContent = 'Next drop in ' + daysLeft + ' days';
+    priceLabel.textContent = 'Save ' + nextSavingsPct + '%';
 }
 
 function applyStrikethroughPricing() {
