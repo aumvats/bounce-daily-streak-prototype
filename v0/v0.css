@@ -141,7 +141,9 @@ body {
 
 /* Progress bar */
 .v0-progress-section {
-    margin-bottom: 16px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e5ea;
 }
 
 .v0-progress-bar {
