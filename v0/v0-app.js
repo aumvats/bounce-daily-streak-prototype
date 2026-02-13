@@ -237,7 +237,7 @@ function renderProgressBar() {
         // Already at max tier
         barFill.style.width = '100%';
         label.textContent = 'Lowest rate unlocked';
-        priceLabel.textContent = 'Saving ' + savingsPct + '%';
+        priceLabel.textContent = 'SmartRent ' + savingsPct + '%';
         return;
     }
 
@@ -252,7 +252,7 @@ function renderProgressBar() {
     var nextSavingsPct = Math.round(((V0_STREAK.baseRate - tier.next.rate) / V0_STREAK.baseRate) * 100);
 
     label.textContent = daysLeft + ' days to ₹' + tier.next.rate + '/day';
-    priceLabel.textContent = savingsPct + '% → ' + nextSavingsPct + '%';
+    priceLabel.textContent = 'SmartRent ' + savingsPct + '% → ' + nextSavingsPct + '%';
 }
 
 function getDurationDays(duration) {
