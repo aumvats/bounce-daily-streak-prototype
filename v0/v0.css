@@ -909,6 +909,13 @@ body {
     border-bottom: 1px solid #e5e5ea;
 }
 
+.v0-ba-lottie {
+    width: 80px;
+    height: 80px;
+    display: block;
+    margin: 0 auto 12px;
+}
+
 .v0-ba-hero-text {
     font-size: 17px;
     font-weight: 700;
