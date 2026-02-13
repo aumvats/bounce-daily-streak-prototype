@@ -901,7 +901,51 @@ body {
     white-space: nowrap;
 }
 
-/* ========== VERSION B: 3-STAGE BEFORE & AFTER ========== */
+/* ========== VERSION B: INTRO + 3-STAGE ========== */
+.v0-ba-intro {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5ea;
+}
+
+.v0-ba-hero-text {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1d1d1f;
+    line-height: 1.35;
+    letter-spacing: -0.3px;
+    margin-bottom: 16px;
+}
+
+.v0-ba-counter {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0;
+}
+
+.v0-ba-counter-rupee {
+    font-size: 24px;
+    font-weight: 800;
+    color: #34c759;
+}
+
+.v0-ba-counter-num {
+    font-size: 48px;
+    font-weight: 800;
+    color: #34c759;
+    letter-spacing: -2px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.v0-ba-counter-unit {
+    font-size: 18px;
+    font-weight: 600;
+    color: #86868b;
+    margin-left: 2px;
+}
+
 .v0-ba-now-label {
     text-align: center;
     font-size: 14px;

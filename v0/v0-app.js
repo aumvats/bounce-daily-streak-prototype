@@ -108,6 +108,34 @@ function openExplainer() {
     document.getElementById('v0ExplainerOverlay').classList.add('active');
     document.getElementById('v0ExplainerSheet').classList.add('active');
     document.body.style.overflow = 'hidden';
+    animatePriceCounter();
+}
+
+function animatePriceCounter() {
+    var el = document.getElementById('v0-price-counter');
+    if (!el) return;
+    var start = V0_STREAK.baseRate; // 300
+    var end = V0_STREAK.tiers[V0_STREAK.tiers.length - 1].rate; // 255
+    var duration = 1500;
+    var startTime = null;
+
+    function tick(ts) {
+        if (!startTime) startTime = ts;
+        var elapsed = ts - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = Math.round(start - (start - end) * eased);
+        el.textContent = current;
+        if (progress < 1) {
+            requestAnimationFrame(tick);
+        }
+    }
+
+    el.textContent = start;
+    setTimeout(function () {
+        requestAnimationFrame(tick);
+    }, 400); // small delay so sheet is visible first
 }
 
 function closeExplainer() {
