@@ -236,9 +236,8 @@ function renderProgressBar() {
     if (!tier.next) {
         // Already at max tier
         barFill.style.width = '100%';
-        var monthlySaving = (V0_STREAK.baseRate - currentRate) * 30;
         label.textContent = 'Lowest rate unlocked';
-        priceLabel.textContent = '₹' + monthlySaving.toLocaleString('en-IN') + '/mo saved';
+        priceLabel.textContent = 'Saving ' + savingsPct + '%';
         return;
     }
 
@@ -250,9 +249,10 @@ function renderProgressBar() {
     barFill.style.width = progress + '%';
 
     var daysLeft = nextDays - V0_STREAK.currentDays;
+    var nextSavingsPct = Math.round(((V0_STREAK.baseRate - tier.next.rate) / V0_STREAK.baseRate) * 100);
 
     label.textContent = daysLeft + ' days to ₹' + tier.next.rate + '/day';
-    priceLabel.textContent = '₹' + (V0_STREAK.baseRate - tier.next.rate) * 30 + '/mo saved';
+    priceLabel.textContent = savingsPct + '% → ' + nextSavingsPct + '%';
 }
 
 function getDurationDays(duration) {
