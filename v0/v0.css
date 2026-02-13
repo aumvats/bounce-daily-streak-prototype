@@ -762,3 +762,371 @@ body {
 .v0-price-discounted {
     color: #34c759 !important;
 }
+
+/* ========== TAB SWITCHER ========== */
+.v0-tab-track {
+    display: flex;
+    background: #f2f2f7;
+    border-radius: 10px;
+    padding: 3px;
+    margin-bottom: 20px;
+    gap: 3px;
+}
+
+.v0-tab {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #86868b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.v0-tab.active {
+    background: white;
+    color: #1d1d1f;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Panel visibility */
+.v0-panel {
+    display: none;
+}
+
+.v0-panel.active {
+    display: block;
+    animation: v0-fadeIn 0.25s ease;
+}
+
+@keyframes v0-fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== VERSION A: STEPS DOWN ========== */
+.v0-panel-tagline {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #86868b;
+    margin-bottom: 20px;
+    letter-spacing: -0.2px;
+}
+
+.v0-staircase {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    padding: 0 4px;
+}
+
+.v0-stair {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.v0-stair-bar {
+    width: 100%;
+    border-radius: 10px 10px 4px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px;
+    min-width: 0;
+}
+
+.v0-stair--base .v0-stair-bar {
+    background: #e5e5ea;
+}
+
+.v0-stair--t1 .v0-stair-bar {
+    background: #d4edda;
+}
+
+.v0-stair--t2 .v0-stair-bar {
+    background: #a8dfb5;
+}
+
+.v0-stair--t3 .v0-stair-bar {
+    background: #34c759;
+}
+
+.v0-stair-price {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1d1d1f;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+}
+
+.v0-stair--t3 .v0-stair-price {
+    color: white;
+}
+
+.v0-stair-unit {
+    font-size: 11px;
+    color: #86868b;
+    font-weight: 500;
+}
+
+.v0-stair--t3 .v0-stair-unit {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.v0-stair-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-top: 8px;
+    letter-spacing: -0.1px;
+}
+
+.v0-stair-saving {
+    font-size: 10px;
+    font-weight: 600;
+    color: #34c759;
+    background: #edfcf0;
+    padding: 2px 6px;
+    border-radius: 6px;
+    margin-top: 4px;
+    white-space: nowrap;
+}
+
+/* ========== VERSION B: BEFORE & AFTER ========== */
+.v0-ba-cards {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.v0-ba-card {
+    flex: 1;
+    border-radius: 16px;
+    padding: 20px 12px;
+    text-align: center;
+}
+
+.v0-ba-card--now {
+    background: #f2f2f7;
+    border: 1px solid #e5e5ea;
+}
+
+.v0-ba-card--best {
+    background: #edfcf0;
+    border: 2px solid #34c759;
+}
+
+.v0-ba-arrow {
+    font-size: 24px;
+    color: #86868b;
+    font-weight: 300;
+    flex-shrink: 0;
+}
+
+.v0-ba-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #86868b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.v0-ba-card--best .v0-ba-label {
+    color: #34c759;
+}
+
+.v0-ba-amount {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1d1d1f;
+    letter-spacing: -1px;
+    line-height: 1.1;
+}
+
+.v0-ba-card--now .v0-ba-amount {
+    text-decoration: line-through;
+    text-decoration-color: rgba(0, 0, 0, 0.3);
+    text-decoration-thickness: 2px;
+    color: #86868b;
+}
+
+.v0-ba-card--best .v0-ba-amount {
+    color: #34c759;
+}
+
+.v0-ba-period {
+    font-size: 13px;
+    color: #86868b;
+    font-weight: 500;
+}
+
+.v0-ba-savings-banner {
+    background: linear-gradient(135deg, #34c759, #30b350);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.v0-ba-savings-main {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.3px;
+}
+
+.v0-ba-savings-sub {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.v0-ba-timeline {
+    margin-bottom: 20px;
+}
+
+.v0-ba-dot-track {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 20px;
+    margin-bottom: 8px;
+}
+
+.v0-ba-dot-track::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 50%;
+    height: 2px;
+    background: #e5e5ea;
+    transform: translateY(-50%);
+}
+
+.v0-ba-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #34c759;
+    border: 2px solid white;
+    box-shadow: 0 0 0 1px #34c759;
+    position: relative;
+    z-index: 1;
+}
+
+.v0-ba-milestones {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8px;
+}
+
+.v0-ba-milestone {
+    text-align: center;
+}
+
+.v0-ba-milestone-days {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+.v0-ba-milestone-price {
+    font-size: 11px;
+    color: #34c759;
+    font-weight: 600;
+}
+
+/* ========== VERSION C: EMOJI FLOW ========== */
+.v0-emoji-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.v0-emoji-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f9f9fb;
+    border: 1px solid #e5e5ea;
+    border-radius: 14px;
+    padding: 14px 12px;
+}
+
+.v0-emoji-row--best {
+    background: #fffbeb;
+    border-color: #fcd34d;
+    border-width: 2px;
+}
+
+.v0-emoji-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.v0-emoji-sep {
+    font-size: 14px;
+    color: #c7c7cc;
+    flex-shrink: 0;
+}
+
+.v0-emoji-days {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1d1d1f;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.v0-emoji-rate {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1d1d1f;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.v0-emoji-save {
+    font-size: 12px;
+    font-weight: 600;
+    color: #34c759;
+    margin-left: auto;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.v0-emoji-row--best .v0-emoji-save {
+    color: #f59e0b;
+}
+
+/* Responsive: smaller staircase on short screens */
+@media (max-height: 640px) {
+    .v0-stair--base .v0-stair-bar { height: 100px !important; }
+    .v0-stair--t1 .v0-stair-bar { height: 80px !important; }
+    .v0-stair--t2 .v0-stair-bar { height: 60px !important; }
+    .v0-stair--t3 .v0-stair-bar { height: 40px !important; }
+    .v0-stair-price { font-size: 15px; }
+}
+
+/* Responsive: tighter emoji rows on narrow screens */
+@media (max-width: 340px) {
+    .v0-emoji-row { padding: 10px 8px; gap: 4px; }
+    .v0-emoji-rate { font-size: 12px; }
+    .v0-emoji-save { font-size: 10px; }
+    .v0-emoji-days { font-size: 12px; }
+}

@@ -116,6 +116,17 @@ function closeExplainer() {
     document.body.style.overflow = 'auto';
 }
 
+function switchExplainerTab(tabId) {
+    // Toggle active tab
+    document.querySelectorAll('.v0-tab').forEach(function (tab) {
+        tab.classList.toggle('active', tab.getAttribute('data-tab') === tabId);
+    });
+    // Toggle active panel
+    document.querySelectorAll('.v0-panel').forEach(function (panel) {
+        panel.classList.toggle('active', panel.getAttribute('data-panel') === tabId);
+    });
+}
+
 // ========== COUNTDOWN TIMER ==========
 function startCountdown() {
     // Prototype: hardcoded 14h 17m 28s countdown from page load
