@@ -27,8 +27,30 @@
 
         <!-- Booking card -->
         <div class="v0-booking-card">
-            <!-- Info icon -->
-            <button class="v0-info-trigger" onclick="openExplainer()" aria-label="About Ride Streaks">i</button>
+            <!-- Streak badge + info icon row -->
+            <div class="v0-streak-row" id="v0-streak-section">
+                <div class="v0-streak-badge">
+                    <span class="v0-streak-flames" id="v0-streak-flames"></span>
+                    <span class="v0-streak-text" id="v0-streak-count">0-day streak</span>
+                </div>
+                <button class="v0-info-trigger-circle" onclick="openExplainer()" aria-label="About Ride Streaks">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M8 7v4M8 5.5v-.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Progress bar to next tier -->
+            <div class="v0-progress-section" id="v0-progress-section">
+                <div class="v0-progress-bar">
+                    <div class="v0-progress-fill" id="v0-progress-fill"></div>
+                </div>
+                <div class="v0-progress-meta">
+                    <span class="v0-progress-label" id="v0-progress-label">30 days to unlock</span>
+                    <span class="v0-progress-price" id="v0-progress-price">₹285/day</span>
+                </div>
+            </div>
 
             <!-- Tags -->
             <div class="v0-tag-row">

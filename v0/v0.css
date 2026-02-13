@@ -88,31 +88,96 @@ body {
     position: relative;
 }
 
-/* Info icon */
-.v0-info-trigger {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 28px;
-    height: 28px;
+/* Streak row */
+.v0-streak-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.v0-streak-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.v0-streak-flames {
+    display: flex;
+    gap: 1px;
+}
+
+.v0-streak-flame {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.v0-streak-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1d1d1f;
+    letter-spacing: -0.3px;
+}
+
+.v0-info-trigger-circle {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background: #f2f2f7;
-    border: 1px solid #e5e5ea;
+    background: none;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s;
-    font-size: 14px;
     color: #86868b;
-    font-weight: 600;
-    font-style: italic;
-    font-family: Georgia, serif;
+    transition: all 0.2s;
+    padding: 0;
 }
 
-.v0-info-trigger:active {
+.v0-info-trigger-circle:active {
     transform: scale(0.9);
+    color: #1d1d1f;
+}
+
+/* Progress bar */
+.v0-progress-section {
+    margin-bottom: 16px;
+}
+
+.v0-progress-bar {
+    height: 8px;
     background: #e5e5ea;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.v0-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #fbbf24, #f59e0b);
+    border-radius: 4px;
+    transition: width 0.6s ease-out;
+    min-width: 0;
+}
+
+.v0-progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.v0-progress-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #86868b;
+    letter-spacing: -0.1px;
+}
+
+.v0-progress-price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ed3833;
+    letter-spacing: -0.2px;
 }
 
 /* Tag row */
@@ -121,7 +186,6 @@ body {
     gap: 8px;
     margin-bottom: 20px;
     flex-wrap: wrap;
-    padding-right: 36px;
 }
 
 .v0-tag {
@@ -643,4 +707,45 @@ body {
 
 .v0-page-cta:active {
     transform: scale(0.97);
+}
+
+/* ========== STRIKETHROUGH PRICING ========== */
+.v0-strike {
+    text-decoration: line-through;
+    text-decoration-color: rgba(255, 255, 255, 0.5);
+    text-decoration-thickness: 1.5px;
+    color: rgba(255, 255, 255, 0.45);
+    margin-right: 4px;
+}
+
+.v0-strike-light {
+    text-decoration: line-through;
+    text-decoration-color: rgba(255, 255, 255, 0.4);
+    text-decoration-thickness: 1.5px;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 12px;
+    margin-right: 4px;
+}
+
+.v0-strike-small {
+    text-decoration: line-through;
+    text-decoration-color: rgba(134, 134, 139, 0.6);
+    text-decoration-thickness: 1.5px;
+    color: #aeaeb2;
+    margin-right: 4px;
+}
+
+.v0-price-original {
+    display: block;
+    font-size: 13px;
+    color: #86868b;
+    text-decoration: line-through;
+    text-decoration-color: rgba(237, 56, 51, 0.5);
+    text-decoration-thickness: 1.5px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.v0-price-discounted {
+    color: #34c759 !important;
 }

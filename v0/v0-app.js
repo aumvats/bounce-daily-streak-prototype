@@ -1,3 +1,36 @@
+// ========== V0 STREAK CONFIG ==========
+var V0_STREAK = {
+    currentDays: 47,          // Change this to test different streak states
+    baseRate: 300,
+    tiers: [
+        { days: 30, rate: 285, flames: 1 },
+        { days: 60, rate: 270, flames: 2 },
+        { days: 90, rate: 255, flames: 3 }
+    ]
+};
+
+function getStreakTier(days) {
+    var current = null;
+    var next = V0_STREAK.tiers[0]; // default next is first tier
+    for (var i = 0; i < V0_STREAK.tiers.length; i++) {
+        if (days >= V0_STREAK.tiers[i].days) {
+            current = V0_STREAK.tiers[i];
+            next = V0_STREAK.tiers[i + 1] || null;
+        }
+    }
+    return { current: current, next: next };
+}
+
+function getCurrentRate() {
+    var tier = getStreakTier(V0_STREAK.currentDays);
+    return tier.current ? tier.current.rate : V0_STREAK.baseRate;
+}
+
+function getFlameCount() {
+    var tier = getStreakTier(V0_STREAK.currentDays);
+    return tier.current ? tier.current.flames : 0;
+}
+
 // ========== V0 APP STATE ==========
 let selectedPlan = null;
 let selectedPrice = 0;
@@ -109,9 +142,115 @@ function startCountdown() {
     setInterval(update, 1000);
 }
 
+// ========== STREAK UI ==========
+function renderStreakBadge() {
+    var el = document.getElementById('v0-streak-count');
+    var flamesEl = document.getElementById('v0-streak-flames');
+    if (!el || !flamesEl) return;
+
+    el.textContent = V0_STREAK.currentDays + '-day streak';
+
+    var count = getFlameCount();
+    var html = '';
+    for (var i = 0; i < count; i++) {
+        html += '<span class="v0-streak-flame">🔥</span>';
+    }
+    flamesEl.innerHTML = html;
+
+    // Hide streak section if 0 days
+    var section = document.getElementById('v0-streak-section');
+    if (section) {
+        section.style.display = V0_STREAK.currentDays > 0 ? 'flex' : 'none';
+    }
+}
+
+function renderProgressBar() {
+    var barFill = document.getElementById('v0-progress-fill');
+    var label = document.getElementById('v0-progress-label');
+    var priceLabel = document.getElementById('v0-progress-price');
+    var section = document.getElementById('v0-progress-section');
+    if (!barFill || !label || !priceLabel || !section) return;
+
+    var tier = getStreakTier(V0_STREAK.currentDays);
+
+    if (!tier.next) {
+        // Already at max tier
+        barFill.style.width = '100%';
+        label.textContent = 'Max streak reached!';
+        priceLabel.textContent = '₹' + getCurrentRate() + '/day';
+        return;
+    }
+
+    var prevDays = tier.current ? tier.current.days : 0;
+    var nextDays = tier.next.days;
+    var progress = ((V0_STREAK.currentDays - prevDays) / (nextDays - prevDays)) * 100;
+    progress = Math.min(Math.max(progress, 0), 100);
+
+    barFill.style.width = progress + '%';
+
+    var daysLeft = nextDays - V0_STREAK.currentDays;
+    label.textContent = daysLeft + ' days to unlock';
+    priceLabel.textContent = '₹' + tier.next.rate + '/day';
+}
+
+function applyStrikethroughPricing() {
+    var currentRate = getCurrentRate();
+    if (currentRate >= V0_STREAK.baseRate) return; // No discount
+
+    // Hero card
+    var heroCard = document.querySelector('.hero-plan-card');
+    if (heroCard) {
+        var heroPrice = parseInt(heroCard.getAttribute('data-price'));
+        var heroDays = 7;
+        var heroOrigPerDay = Math.round(heroPrice / heroDays);
+        var heroNewPerDay = currentRate;
+        var heroNewTotal = heroNewPerDay * heroDays;
+
+        var heroDetails = heroCard.querySelector('.hero-details');
+        if (heroDetails) {
+            heroDetails.innerHTML = '<span class="v0-strike">₹' + heroOrigPerDay + '/day</span> ₹' + heroNewPerDay + '/day &bull; Unlimited km';
+        }
+
+        var heroBadge = heroCard.querySelector('.hero-badge');
+        if (heroBadge) {
+            heroBadge.innerHTML = '<span class="v0-strike-light">₹' + heroPrice + '</span> ₹' + heroNewTotal + '/week';
+        }
+    }
+
+    // Regular plan cards
+    document.querySelectorAll('.plan-card').forEach(function (card) {
+        var origTotal = parseInt(card.getAttribute('data-price'));
+        var duration = card.getAttribute('data-duration');
+        var days = parseInt(duration);
+        if (isNaN(days)) {
+            if (duration === '3day') days = 3;
+            else if (duration === '7day') days = 7;
+            else if (duration === '14day') days = 14;
+            else if (duration === '1day') days = 1;
+        }
+
+        var newTotal = currentRate * days;
+        var priceEl = card.querySelector('.plan-price');
+        if (priceEl && newTotal < origTotal) {
+            priceEl.innerHTML = '<span class="v0-price-original">₹' + origTotal + '</span>₹' + newTotal;
+            priceEl.classList.add('v0-price-discounted');
+        }
+
+        var detailsEl = card.querySelector('.plan-details');
+        if (detailsEl && newTotal < origTotal) {
+            var origPerDay = Math.round(origTotal / days);
+            var kmText = detailsEl.textContent.split('•')[1] || '';
+            detailsEl.innerHTML = '<span class="v0-strike-small">₹' + origPerDay + '/day</span> ₹' + currentRate + '/day &bull;' + kmText;
+        }
+    });
+}
+
 // ========== INIT ==========
 document.addEventListener('DOMContentLoaded', function () {
     startCountdown();
+    renderStreakBadge();
+    renderProgressBar();
+    applyStrikethroughPricing();
 
     // Plan card selection (visual toggle)
     document.querySelectorAll('.plan-card, .hero-plan-card').forEach(function (card) {
