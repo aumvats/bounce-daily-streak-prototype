@@ -86,6 +86,7 @@ body {
     padding: 20px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     position: relative;
+    overflow: hidden;
 }
 
 /* Streak row */
@@ -104,6 +105,7 @@ body {
     border: 1px solid #fed7aa;
     border-radius: 20px;
     padding: 6px 14px 6px 8px;
+    cursor: pointer;
 }
 
 .v0-streak-lottie {
@@ -141,31 +143,33 @@ body {
 
 /* Progress bar */
 .v0-progress-section {
-    margin-top: 16px;
-    padding-top: 16px;
+    margin: 16px -20px -20px;
+    padding: 0;
     border-top: 1px solid #e5e5ea;
-}
-
-.v0-progress-bar {
-    height: 8px;
-    background: #e5e5ea;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 6px;
-}
-
-.v0-progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #fbbf24, #f59e0b);
-    border-radius: 4px;
-    transition: width 0.6s ease-out;
-    min-width: 0;
+    cursor: pointer;
 }
 
 .v0-progress-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 12px 20px 10px;
+}
+
+.v0-progress-bar {
+    height: 8px;
+    background: #e5e5ea;
+    border-radius: 0;
+    overflow: hidden;
+    margin: 0;
+}
+
+.v0-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #fbbf24, #f59e0b);
+    border-radius: 0;
+    transition: width 0.6s ease-out;
+    min-width: 0;
 }
 
 .v0-progress-label {
@@ -909,11 +913,20 @@ body {
     border-bottom: 1px solid #e5e5ea;
 }
 
-.v0-ba-lottie {
-    width: 80px;
-    height: 80px;
-    display: block;
+.v0-ba-lottie-wrap {
+    width: 200px;
+    height: 140px;
+    overflow: hidden;
     margin: 0 auto 12px;
+    position: relative;
+}
+
+.v0-ba-lottie {
+    width: 200px;
+    height: 200px;
+    display: block;
+    transform: scale(2.8);
+    transform-origin: 58% 46%;
 }
 
 .v0-ba-hero-text {
@@ -985,8 +998,8 @@ body {
 }
 
 .v0-ba-stage--best {
-    background: #edfcf0;
-    border: 2px solid #34c759;
+    background: #fff5f5;
+    border: 2px solid #ed3833;
 }
 
 .v0-ba-stage-arrow {
@@ -1005,7 +1018,7 @@ body {
 }
 
 .v0-ba-stage--best .v0-ba-stage-days {
-    color: #34c759;
+    color: #ed3833;
 }
 
 .v0-ba-stage-amount {
@@ -1017,7 +1030,7 @@ body {
 }
 
 .v0-ba-stage--best .v0-ba-stage-amount {
-    color: #34c759;
+    color: #ed3833;
 }
 
 .v0-ba-stage-period {

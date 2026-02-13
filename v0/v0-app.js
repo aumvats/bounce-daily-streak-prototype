@@ -1,4 +1,4 @@
-// ========== V0 STREAK CONFIG ==========
+// ========== V0 SMARTRENT CONFIG ==========
 var V0_STREAK = {
     currentDays: 47,          // Change this to test different streak states
     baseRate: 300,
@@ -59,7 +59,7 @@ function openPlanSheet(duration) {
     document.body.style.overflow = 'hidden';
 }
 
-function selectOption(duration, price, perDay, validity, distance) {
+function highlightOption(el, duration, price, perDay, validity, distance) {
     selectedPrice = price;
     selectedPerDay = perDay;
     selectedValidity = validity;
@@ -70,16 +70,31 @@ function selectOption(duration, price, perDay, validity, distance) {
     sheet.querySelectorAll('.option-card').forEach(function (card) {
         card.classList.remove('selected');
     });
-    event.currentTarget.classList.add('selected');
+    el.classList.add('selected');
 
-    // Close options sheet and open confirmation
-    setTimeout(function () {
+    // Enable Continue button
+    var continueBtn = sheet.querySelector('.sheet-continue-btn');
+    if (continueBtn) {
+        continueBtn.disabled = false;
+    }
+}
+
+function continueWithPlan() {
+    var sheet = document.getElementById('sheet-' + selectedPlan);
+    if (sheet) {
         sheet.classList.remove('active');
-        updateReviewConfirmation();
-        setTimeout(function () {
-            document.getElementById('review-confirmation').classList.add('active');
-        }, 100);
-    }, 300);
+    }
+    updateReviewConfirmation();
+    setTimeout(function () {
+        document.getElementById('review-confirmation').classList.add('active');
+    }, 100);
+}
+
+function switchBikeTab(el) {
+    document.querySelectorAll('.bike-tab').forEach(function (tab) {
+        tab.classList.remove('active');
+    });
+    el.classList.add('active');
 }
 
 function updateReviewConfirmation() {
@@ -94,6 +109,12 @@ function closeAllSheets() {
     document.getElementById('overlay').classList.remove('active');
     document.querySelectorAll('.review-sheet').forEach(function (sheet) {
         sheet.classList.remove('active');
+        // Reset selections and Continue buttons
+        sheet.querySelectorAll('.option-card').forEach(function (card) {
+            card.classList.remove('selected');
+        });
+        var btn = sheet.querySelector('.sheet-continue-btn');
+        if (btn) btn.disabled = true;
     });
     document.body.style.overflow = 'auto';
 }
@@ -181,13 +202,13 @@ function startCountdown() {
     setInterval(update, 1000);
 }
 
-// ========== STREAK UI ==========
+// ========== SMARTRENT UI ==========
 function renderStreakBadge() {
     var el = document.getElementById('v0-streak-count');
     var lottie = document.getElementById('v0-streak-lottie');
     if (!el) return;
 
-    el.textContent = V0_STREAK.currentDays + '-day streak';
+    el.textContent = 'SmartRent: Day ' + V0_STREAK.currentDays;
 
     // Show/hide lottie based on streak
     if (lottie) {
@@ -215,8 +236,9 @@ function renderProgressBar() {
     if (!tier.next) {
         // Already at max tier
         barFill.style.width = '100%';
-        label.textContent = 'Max streak reached!';
-        priceLabel.textContent = 'Saving ' + savingsPct + '%';
+        var monthlySaving = (V0_STREAK.baseRate - currentRate) * 30;
+        label.textContent = 'Lowest rate unlocked';
+        priceLabel.textContent = '₹' + monthlySaving.toLocaleString('en-IN') + '/mo saved';
         return;
     }
 
@@ -228,60 +250,99 @@ function renderProgressBar() {
     barFill.style.width = progress + '%';
 
     var daysLeft = nextDays - V0_STREAK.currentDays;
-    var nextSavingsPct = Math.round(((V0_STREAK.baseRate - tier.next.rate) / V0_STREAK.baseRate) * 100);
 
-    label.textContent = 'Next drop in ' + daysLeft + ' days';
-    priceLabel.textContent = 'Save ' + nextSavingsPct + '%';
+    label.textContent = daysLeft + ' days to ₹' + tier.next.rate + '/day';
+    priceLabel.textContent = '₹' + (V0_STREAK.baseRate - tier.next.rate) * 30 + '/mo saved';
+}
+
+function getDurationDays(duration) {
+    var days = parseInt(duration);
+    if (!isNaN(days)) return days;
+    if (duration === '1day') return 1;
+    if (duration === '3day') return 3;
+    if (duration === '7day') return 7;
+    if (duration === '14day') return 14;
+    if (duration === '30day') return 30;
+    return 0;
 }
 
 function applyStrikethroughPricing() {
     var currentRate = getCurrentRate();
     if (currentRate >= V0_STREAK.baseRate) return; // No discount
 
+    var savingsPct = Math.round(((V0_STREAK.baseRate - currentRate) / V0_STREAK.baseRate) * 100);
+
     // Hero card
     var heroCard = document.querySelector('.hero-plan-card');
     if (heroCard) {
-        var heroPrice = parseInt(heroCard.getAttribute('data-price'));
-        var heroDays = 7;
-        var heroOrigPerDay = Math.round(heroPrice / heroDays);
-        var heroNewPerDay = currentRate;
-        var heroNewTotal = heroNewPerDay * heroDays;
+        var heroOrigPerDay = parseInt(heroCard.getAttribute('data-perday'));
+        if (currentRate < heroOrigPerDay) {
+            var heroDays = getDurationDays(heroCard.getAttribute('data-duration'));
+            var heroNewTotal = currentRate * heroDays;
 
-        var heroDetails = heroCard.querySelector('.hero-details');
-        if (heroDetails) {
-            heroDetails.innerHTML = '<span class="v0-strike">₹' + heroOrigPerDay + '/day</span> ₹' + heroNewPerDay + '/day &bull; Unlimited km';
-        }
-
-        var heroBadge = heroCard.querySelector('.hero-badge');
-        if (heroBadge) {
-            heroBadge.innerHTML = '<span class="v0-strike-light">₹' + heroPrice + '</span> ₹' + heroNewTotal + '/week';
+            var heroDetails = heroCard.querySelector('.hero-details');
+            if (heroDetails) {
+                heroDetails.innerHTML = '<span class="v0-strike">₹' + heroOrigPerDay + '/day</span> ₹' + currentRate + '/day &bull; Unlimited Kilometers';
+            }
+            heroCard.setAttribute('data-price', heroNewTotal);
         }
     }
 
     // Regular plan cards
     document.querySelectorAll('.plan-card').forEach(function (card) {
-        var origTotal = parseInt(card.getAttribute('data-price'));
-        var duration = card.getAttribute('data-duration');
-        var days = parseInt(duration);
-        if (isNaN(days)) {
-            if (duration === '3day') days = 3;
-            else if (duration === '7day') days = 7;
-            else if (duration === '14day') days = 14;
-            else if (duration === '1day') days = 1;
+        var origPerDay = parseInt(card.getAttribute('data-perday'));
+        if (currentRate < origPerDay) {
+            var detailsEl = card.querySelector('.plan-details');
+            if (detailsEl) {
+                detailsEl.innerHTML = '<span class="v0-strike-small">₹' + origPerDay + '/day</span> Pricing starts from ₹' + currentRate + '/day';
+            }
+
+            // Add SmartRent discount badge
+            if (!card.querySelector('.streak-discount-badge')) {
+                var badge = document.createElement('div');
+                badge.className = 'streak-discount-badge';
+                badge.textContent = 'SmartRent -' + savingsPct + '%';
+                card.querySelector('.plan-left').appendChild(badge);
+            }
         }
+    });
+
+    // Option cards in bottom sheets
+    document.querySelectorAll('.review-sheet .option-card').forEach(function (card) {
+        var origPerDay = parseInt(card.getAttribute('data-perday'));
+        var origTotal = parseInt(card.getAttribute('data-orig-total'));
+        if (!origPerDay || !origTotal || currentRate >= origPerDay) return;
+
+        var sheet = card.closest('.review-sheet');
+        var sheetId = sheet.id;
+        var duration = sheetId.replace('sheet-', '');
+        var days = getDurationDays(duration);
+        if (!days) return;
 
         var newTotal = currentRate * days;
-        var priceEl = card.querySelector('.plan-price');
-        if (priceEl && newTotal < origTotal) {
-            priceEl.innerHTML = '<span class="v0-price-original">₹' + origTotal + '</span>₹' + newTotal;
-            priceEl.classList.add('v0-price-discounted');
+        var pricingH3 = card.querySelector('.option-pricing h3');
+        var pricingP = card.querySelector('.option-pricing p');
+        if (pricingH3 && newTotal < origTotal) {
+            pricingH3.innerHTML = '<span class="option-price-original">₹' + origTotal.toLocaleString('en-IN') + '</span><span class="option-price-new">₹' + newTotal.toLocaleString('en-IN') + '</span>';
+            if (pricingP) {
+                pricingP.textContent = '₹' + currentRate + ' × ' + days + ' days';
+            }
+
+            // Add discount tag
+            if (!card.querySelector('.option-discount-tag')) {
+                var tag = document.createElement('div');
+                tag.className = 'option-discount-tag';
+                tag.textContent = 'SMARTRENT -' + savingsPct + '%';
+                card.querySelector('.option-pricing').appendChild(tag);
+            }
         }
 
-        var detailsEl = card.querySelector('.plan-details');
-        if (detailsEl && newTotal < origTotal) {
-            var origPerDay = Math.round(origTotal / days);
-            var kmText = detailsEl.textContent.split('•')[1] || '';
-            detailsEl.innerHTML = '<span class="v0-strike-small">₹' + origPerDay + '/day</span> ₹' + currentRate + '/day &bull;' + kmText;
+        // Update onclick with new price
+        if (newTotal < origTotal) {
+            var onclickStr = card.getAttribute('onclick');
+            if (onclickStr) {
+                card.setAttribute('onclick', onclickStr.replace(origTotal, newTotal).replace('₹' + origPerDay, '₹' + currentRate));
+            }
         }
     });
 }

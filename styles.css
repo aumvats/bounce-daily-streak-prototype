@@ -898,3 +898,103 @@ body {
     margin-top: 6px;
     letter-spacing: 0.3px;
 }
+
+/* ========== BIKE TAB SWITCHER ========== */
+.bike-tab-switcher {
+    display: flex;
+    background: #f2f2f7;
+    border-radius: 10px;
+    padding: 3px;
+    margin: 12px 20px 16px;
+    gap: 3px;
+}
+
+.bike-tab {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #86868b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.bike-tab.active {
+    background: white;
+    color: #1d1d1f;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== ACTIVATION BANNERS ========== */
+.hero-activation-banner {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.plan-activation-banner {
+    background: linear-gradient(135deg, #fff0ee, #fef1f0);
+    border: 1px solid rgba(237, 56, 51, 0.15);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ed3833;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.activation-banner-icon {
+    font-size: 16px;
+}
+
+/* ========== CONTINUE BUTTON IN SHEETS ========== */
+.sheet-continue-btn {
+    width: 100%;
+    padding: 16px;
+    background: #ed3833;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: -0.3px;
+    box-shadow: 0 4px 16px rgba(237, 56, 51, 0.3);
+    margin-top: 20px;
+}
+
+.sheet-continue-btn:active {
+    transform: scale(0.97);
+}
+
+.sheet-continue-btn:disabled {
+    background: #d1d1d6;
+    color: #86868b;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* ========== PLANS FOOTER ========== */
+.plans-footer {
+    text-align: center;
+    font-size: 13px;
+    color: #86868b;
+    padding: 16px 0 8px;
+}
