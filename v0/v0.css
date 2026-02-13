@@ -422,12 +422,23 @@ body {
     filter: hue-rotate(-10deg);
 }
 
-.v0-tier-days {
+.v0-tier-info {
     flex: 1;
+}
+
+.v0-tier-days {
     font-size: 16px;
     font-weight: 600;
     color: #1d1d1f;
     letter-spacing: -0.2px;
+}
+
+.v0-tier-savings {
+    font-size: 12px;
+    font-weight: 500;
+    color: #34c759;
+    margin-top: 2px;
+    letter-spacing: -0.1px;
 }
 
 .v0-tier-price {

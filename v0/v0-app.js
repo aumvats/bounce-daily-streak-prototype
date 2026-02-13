@@ -189,7 +189,7 @@ function renderProgressBar() {
     barFill.style.width = progress + '%';
 
     var daysLeft = nextDays - V0_STREAK.currentDays;
-    label.textContent = daysLeft + ' days to unlock';
+    label.textContent = daysLeft + ' more days to next rate drop';
     priceLabel.textContent = '₹' + tier.next.rate + '/day';
 }
 
