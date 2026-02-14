@@ -530,30 +530,10 @@ function renderLayoutH() {
     document.getElementById('v0-sr-inner-bottom').style.display = 'none';
 }
 
-// ========== LAYOUT I: Pure status badge ==========
+// ========== LAYOUT I: Just the streak label ==========
 function renderLayoutI() {
     var wrapper = document.getElementById('v0-card-wrapper');
     wrapper.className = 'v0-card-wrapper layout-i';
-
-    var innerTop = document.getElementById('v0-sr-inner-top');
-    innerTop.style.display = '';
-    innerTop.innerHTML = '<div class="v0-badge-i">' +
-        '<dotlottie-wc src="../Fire Streak Orange.lottie" autoplay loop class="v0-bi-lottie"></dotlottie-wc>' +
-        '<span class="v0-bi-label">SmartRent</span>' +
-        '<button class="v0-info-trigger-circle" onclick="event.stopPropagation(); openExplainer()" aria-label="About SmartRent">' +
-            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4M8 5.5v-.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
-        '</button>' +
-    '</div>';
-
-    document.getElementById('v0-sr-top').style.display = 'none';
-    document.getElementById('v0-sr-bottom').style.display = 'none';
-    document.getElementById('v0-sr-inner-bottom').style.display = 'none';
-}
-
-// ========== LAYOUT J: Just the streak label ==========
-function renderLayoutJ() {
-    var wrapper = document.getElementById('v0-card-wrapper');
-    wrapper.className = 'v0-card-wrapper layout-j';
 
     var innerTop = document.getElementById('v0-sr-inner-top');
     innerTop.style.display = '';
@@ -585,7 +565,6 @@ function switchLayout(layout) {
     else if (layout === 'g') renderLayoutG();
     else if (layout === 'h') renderLayoutH();
     else if (layout === 'i') renderLayoutI();
-    else if (layout === 'j') renderLayoutJ();
 }
 
 function renderStreakBadge() {

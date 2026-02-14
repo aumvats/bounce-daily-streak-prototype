@@ -570,46 +570,12 @@ body {
     color: #1d1d1f;
 }
 
-/* ===== LAYOUT I: Pure status badge ===== */
+/* ===== LAYOUT I: Just the streak label ===== */
 .layout-i .v0-sr-inner-top {
     margin-bottom: 14px;
 }
 
-.layout-i .v0-badge-i {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: #fffbeb;
-    border: 1px solid #fed7aa;
-    border-radius: 20px;
-    padding: 7px 12px 7px 8px;
-    cursor: pointer;
-}
-
-.layout-i .v0-bi-lottie {
-    width: 22px;
-    height: 22px;
-    flex-shrink: 0;
-}
-
-.layout-i .v0-bi-label {
-    font-size: 14px;
-    font-weight: 700;
-    color: #92400e;
-    letter-spacing: -0.2px;
-}
-
-.layout-i .v0-info-trigger-circle {
-    width: 24px;
-    height: 24px;
-}
-
-/* ===== LAYOUT J: Just the streak label ===== */
-.layout-j .v0-sr-inner-top {
-    margin-bottom: 14px;
-}
-
-.layout-j .v0-just-label {
+.layout-i .v0-just-label {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -620,13 +586,13 @@ body {
     cursor: pointer;
 }
 
-.layout-j .v0-jl-lottie {
+.layout-i .v0-jl-lottie {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
 }
 
-.layout-j .v0-jl-text {
+.layout-i .v0-jl-text {
     font-size: 15px;
     font-weight: 700;
     color: #92400e;
