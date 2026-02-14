@@ -476,151 +476,65 @@
         <button class="cta-button" onclick="confirmPlan()">Confirm</button>
     </div>
 
-    <!-- ========== EXPLAINER MODAL ========== -->
-    <div class="v0-explainer-overlay" id="v0ExplainerOverlay" onclick="closeExplainer()"></div>
-    <div class="v0-explainer-sheet" id="v0ExplainerSheet">
-        <div class="v0-explainer-handle"></div>
-        <div class="v0-explainer-header">
-            <h2 class="v0-explainer-title">How SmartRent Works</h2>
-            <button class="v0-explainer-close" onclick="closeExplainer()">&times;</button>
+    <!-- ========== EXPLAINER FULL SCREEN ========== -->
+    <div class="v0-explainer-fullscreen" id="v0ExplainerFullscreen">
+        <div class="v0-explainer-page-header">
+            <button class="v0-back-btn" onclick="closeExplainer()">&larr;</button>
+            <span class="v0-explainer-page-title">SmartRent</span>
         </div>
 
-        <!-- Tab Switcher (commented out for now)
-        <div class="v0-tab-track">
-            <button class="v0-tab active" data-tab="a" onclick="switchExplainerTab('a')">📊 A</button>
-            <button class="v0-tab" data-tab="b" onclick="switchExplainerTab('b')">💰 B</button>
-            <button class="v0-tab" data-tab="c" onclick="switchExplainerTab('c')">🛵 C</button>
-        </div>
-        -->
-
-        <!-- VERSION A: Steps Down (commented out for now)
-        <div class="v0-panel active" data-panel="a">
-            <p class="v0-panel-tagline">Price goes ↓ as days go ↑</p>
-
-            <div class="v0-staircase">
-                <div class="v0-stair v0-stair--base">
-                    <div class="v0-stair-bar" style="height: 140px;">
-                        <span class="v0-stair-price">₹300</span>
-                        <span class="v0-stair-unit">/day</span>
+        <div class="v0-explainer-page-content">
+            <!-- Section 1: Your Progress -->
+            <div class="v0-exp-section">
+                <div class="v0-exp-progress-card">
+                    <div class="v0-exp-progress-header">
+                        <dotlottie-wc src="../Fire Streak Orange.lottie" autoplay loop class="v0-exp-flame"></dotlottie-wc>
+                        <div class="v0-exp-progress-info">
+                            <div class="v0-exp-progress-title" id="v0-exp-progress-title">Day 47</div>
+                            <div class="v0-exp-progress-sub" id="v0-exp-progress-sub">You're paying ₹285/day</div>
+                        </div>
                     </div>
-                    <div class="v0-stair-label">Start</div>
-                </div>
-                <div class="v0-stair v0-stair--t1">
-                    <div class="v0-stair-bar" style="height: 112px;">
-                        <span class="v0-stair-price">₹285</span>
-                        <span class="v0-stair-unit">/day</span>
-                    </div>
-                    <div class="v0-stair-label">30 days</div>
-                    <div class="v0-stair-saving">-₹450/mo</div>
-                </div>
-                <div class="v0-stair v0-stair--t2">
-                    <div class="v0-stair-bar" style="height: 84px;">
-                        <span class="v0-stair-price">₹270</span>
-                        <span class="v0-stair-unit">/day</span>
-                    </div>
-                    <div class="v0-stair-label">60 days</div>
-                    <div class="v0-stair-saving">-₹900/mo</div>
-                </div>
-                <div class="v0-stair v0-stair--t3">
-                    <div class="v0-stair-bar" style="height: 56px;">
-                        <span class="v0-stair-price">₹255</span>
-                        <span class="v0-stair-unit">/day</span>
-                    </div>
-                    <div class="v0-stair-label">90 days</div>
-                    <div class="v0-stair-saving">-₹1,350/mo</div>
+                    <div id="v0-exp-milestone-track"></div>
                 </div>
             </div>
 
+            <!-- Section 2: How It Works -->
+            <div class="v0-exp-section">
+                <div class="v0-explainer-section-title">How It Works</div>
+                <div class="v0-how-it-works">
+                    <div class="v0-step">
+                        <div class="v0-step-number">1</div>
+                        <div class="v0-step-content">
+                            <div class="v0-step-title">Keep your scooter</div>
+                            <div class="v0-step-desc">Every day you renew, your streak grows.</div>
+                        </div>
+                    </div>
+                    <div class="v0-step">
+                        <div class="v0-step-number">2</div>
+                        <div class="v0-step-content">
+                            <div class="v0-step-title">Unlock lower rates</div>
+                            <div class="v0-step-desc">Hit milestones to automatically get a lower daily rate.</div>
+                        </div>
+                    </div>
+                    <div class="v0-step">
+                        <div class="v0-step-number">3</div>
+                        <div class="v0-step-content">
+                            <div class="v0-step-title">Save more over time</div>
+                            <div class="v0-step-desc">The longer you ride, the more you save. Max savings at 90 days.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Warning -->
             <div class="v0-warning-box">
                 <span class="v0-warning-box-icon">⚠️</span>
-                <span class="v0-warning-box-text">Return scooter = back to ₹300/day</span>
+                <span class="v0-warning-box-text">Returning your scooter resets SmartRent and your rate goes back to ₹300/day.</span>
             </div>
 
-            <button class="v0-got-it-btn" onclick="closeExplainer()">Got It!</button>
+            <!-- CTA -->
+            <button class="v0-page-cta" onclick="closeExplainer()">Got It!</button>
         </div>
-        -->
-
-        <!-- ===== VERSION B: Before & After (3 stages) — ACTIVE ===== -->
-        <div>
-            <!-- Intro: hero statement + animated counter -->
-            <div class="v0-ba-intro">
-                <div class="v0-ba-lottie-wrap">
-                    <dotlottie-wc
-                        src="../Savings animation (1).lottie"
-                        autoplay loop
-                        class="v0-ba-lottie"
-                    ></dotlottie-wc>
-                </div>
-                <div class="v0-ba-hero-text">More days = less rent.</div>
-            </div>
-
-            <div class="v0-ba-now-label">Now: <span class="v0-ba-now-strike">₹300/day</span></div>
-
-            <div class="v0-ba-stages">
-                <div class="v0-ba-stage">
-                    <div class="v0-ba-stage-days">30 days</div>
-                    <div class="v0-ba-stage-amount">₹285</div>
-                    <div class="v0-ba-stage-period">/day</div>
-                </div>
-                <div class="v0-ba-stage-arrow">→</div>
-                <div class="v0-ba-stage">
-                    <div class="v0-ba-stage-days">60 days</div>
-                    <div class="v0-ba-stage-amount">₹270</div>
-                    <div class="v0-ba-stage-period">/day</div>
-                </div>
-                <div class="v0-ba-stage-arrow">→</div>
-                <div class="v0-ba-stage v0-ba-stage--best">
-                    <div class="v0-ba-stage-days">90 days</div>
-                    <div class="v0-ba-stage-amount">₹255</div>
-                    <div class="v0-ba-stage-period">/day</div>
-                </div>
-            </div>
-
-            <div class="v0-warning-box">
-                <span class="v0-warning-box-icon">⚠️</span>
-                <span class="v0-warning-box-text">Return scooter = back to ₹300/day</span>
-            </div>
-
-            <button class="v0-got-it-btn" onclick="closeExplainer()">Got It!</button>
-        </div>
-
-        <!-- VERSION C: Emoji Flow (commented out for now)
-        <div class="v0-panel" data-panel="c">
-            <div class="v0-emoji-rows">
-                <div class="v0-emoji-row">
-                    <span class="v0-emoji-icon">🛵</span>
-                    <span class="v0-emoji-sep">→</span>
-                    <span class="v0-emoji-days">📅 30</span>
-                    <span class="v0-emoji-sep">→</span>
-                    <span class="v0-emoji-rate">₹285/day</span>
-                    <span class="v0-emoji-save">💰 ₹450/mo</span>
-                </div>
-                <div class="v0-emoji-row">
-                    <span class="v0-emoji-icon">🛵</span>
-                    <span class="v0-emoji-sep">→</span>
-                    <span class="v0-emoji-days">📅 60</span>
-                    <span class="v0-emoji-sep">→</span>
-                    <span class="v0-emoji-rate">₹270/day</span>
-                    <span class="v0-emoji-save">💰 ₹900/mo</span>
-                </div>
-                <div class="v0-emoji-row v0-emoji-row--best">
-                    <span class="v0-emoji-icon">🛵</span>
-                    <span class="v0-emoji-sep">→</span>
-                    <span class="v0-emoji-days">📅 90</span>
-                    <span class="v0-emoji-sep">→</span>
-                    <span class="v0-emoji-rate">₹255/day</span>
-                    <span class="v0-emoji-save">💰 ₹1,350/mo ★</span>
-                </div>
-            </div>
-
-            <div class="v0-warning-box">
-                <span class="v0-warning-box-icon">⚠️</span>
-                <span class="v0-warning-box-text">🔙 Return = ₹300/day</span>
-            </div>
-
-            <button class="v0-got-it-btn" onclick="closeExplainer()">Got It!</button>
-        </div>
-        -->
     </div>
 
     <!-- Layout switcher (prototype only, fixed footer) -->

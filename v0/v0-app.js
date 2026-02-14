@@ -126,10 +126,24 @@ function confirmPlan() {
 
 // ========== EXPLAINER POPUP ==========
 function openExplainer() {
-    document.getElementById('v0ExplainerOverlay').classList.add('active');
-    document.getElementById('v0ExplainerSheet').classList.add('active');
+    var fs = document.getElementById('v0ExplainerFullscreen');
+    fs.classList.add('active');
     document.body.style.overflow = 'hidden';
-    animatePriceCounter();
+
+    // Populate milestone track
+    var trackEl = document.getElementById('v0-exp-milestone-track');
+    if (trackEl) trackEl.innerHTML = buildMilestoneTrackHTML(false);
+
+    // Populate progress header
+    var titleEl = document.getElementById('v0-exp-progress-title');
+    var subEl = document.getElementById('v0-exp-progress-sub');
+    if (titleEl) titleEl.textContent = 'Day ' + V0_STREAK.currentDays;
+    if (subEl) {
+        var rate = getCurrentRate();
+        subEl.textContent = rate < V0_STREAK.baseRate
+            ? "You\u2019re paying \u20B9" + rate + '/day'
+            : 'Starting rate: \u20B9' + V0_STREAK.baseRate + '/day';
+    }
 }
 
 function animatePriceCounter() {
@@ -160,8 +174,8 @@ function animatePriceCounter() {
 }
 
 function closeExplainer() {
-    document.getElementById('v0ExplainerOverlay').classList.remove('active');
-    document.getElementById('v0ExplainerSheet').classList.remove('active');
+    var fs = document.getElementById('v0ExplainerFullscreen');
+    fs.classList.remove('active');
     document.body.style.overflow = 'auto';
 }
 
