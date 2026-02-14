@@ -203,56 +203,242 @@ function startCountdown() {
 }
 
 // ========== SMARTRENT UI ==========
-function renderStreakBadge() {
-    var el = document.getElementById('v0-streak-count');
-    var lottie = document.getElementById('v0-streak-lottie');
-    if (!el) return;
+var currentLayout = 'a';
 
-    el.textContent = 'SmartRent: Day ' + V0_STREAK.currentDays;
-
-    // Show/hide lottie based on streak
-    if (lottie) {
-        lottie.style.display = V0_STREAK.currentDays > 0 ? 'block' : 'none';
+function getMilestones() {
+    var milestones = [{ days: 0, rate: V0_STREAK.baseRate, label: 'Start' }];
+    for (var i = 0; i < V0_STREAK.tiers.length; i++) {
+        var t = V0_STREAK.tiers[i];
+        milestones.push({ days: t.days, rate: t.rate, label: t.days + 'd' });
     }
-
-    // Hide streak section if 0 days
-    var section = document.getElementById('v0-streak-section');
-    if (section) {
-        section.style.display = V0_STREAK.currentDays > 0 ? 'flex' : 'none';
-    }
+    return milestones;
 }
 
-function renderProgressBar() {
-    var barFill = document.getElementById('v0-progress-fill');
-    var label = document.getElementById('v0-progress-label');
-    var priceLabel = document.getElementById('v0-progress-price');
-    var section = document.getElementById('v0-progress-section');
-    if (!barFill || !label || !priceLabel || !section) return;
+function buildMilestoneTrackHTML(compact) {
+    var milestones = getMilestones();
+    var days = V0_STREAK.currentDays;
+    var html = '<div class="v0-milestone-track' + (compact ? ' compact' : '') + '">';
 
+    for (var m = 0; m < milestones.length; m++) {
+        var ms = milestones[m];
+        var completed = days >= ms.days && m < milestones.length - 1;
+        var isCurrent = false;
+        var isFuture = days < ms.days;
+
+        if (days >= ms.days && (m === milestones.length - 1 || days < milestones[m + 1].days)) {
+            isCurrent = true;
+            completed = false;
+        }
+
+        var dotClass = 'v0-milestone-dot';
+        var dotContent = '';
+        if (completed) { dotClass += ' completed'; dotContent = '&#10003;'; }
+        else if (isCurrent) { dotClass += ' current'; dotContent = '&#10003;'; }
+        else { dotClass += ' future'; }
+
+        var daysClass = 'v0-milestone-days' + (completed || isCurrent ? ' active' : '');
+        var rateClass = 'v0-milestone-rate';
+        if (isCurrent) rateClass += ' active';
+        else if (isFuture && m === milestones.length - 1) rateClass += ' future-highlight';
+
+        html += '<div class="v0-milestone">';
+        html += '<div class="' + dotClass + '">' + dotContent + '</div>';
+        html += '<div class="' + daysClass + '">' + ms.label + '</div>';
+        html += '<div class="' + rateClass + '">₹' + ms.rate + '</div>';
+        html += '</div>';
+
+        if (m < milestones.length - 1) {
+            var nextMs = milestones[m + 1];
+            var segFill = 0;
+            if (days >= nextMs.days) segFill = 100;
+            else if (days > ms.days) segFill = ((days - ms.days) / (nextMs.days - ms.days)) * 100;
+
+            var hasMarker = segFill > 0 && segFill < 100;
+            html += '<div class="v0-milestone-segment">';
+            html += '<div class="v0-milestone-segment-fill" style="width:' + segFill + '%"></div>';
+            if (hasMarker) {
+                html += '<div class="v0-milestone-marker" style="left:' + segFill + '%">';
+                html += '<div class="v0-milestone-marker-dot"></div>';
+                html += '<div class="v0-milestone-marker-label">Day ' + days + '</div>';
+                html += '</div>';
+            }
+            html += '</div>';
+        }
+    }
+    html += '</div>';
+    return html;
+}
+
+function buildBadgeHTML() {
+    return '<dotlottie-wc src="../Fire Streak Orange.lottie" autoplay loop class="v0-streak-lottie"></dotlottie-wc>' +
+        '<span class="v0-streak-text">SmartRent: Day ' + V0_STREAK.currentDays + '</span>';
+}
+
+function buildMiniProgressHTML() {
     var tier = getStreakTier(V0_STREAK.currentDays);
     var currentRate = getCurrentRate();
     var savingsPct = Math.round(((V0_STREAK.baseRate - currentRate) / V0_STREAK.baseRate) * 100);
+    var overall = 0;
+    var maxDays = V0_STREAK.tiers[V0_STREAK.tiers.length - 1].days;
+    overall = Math.min((V0_STREAK.currentDays / maxDays) * 100, 100);
 
+    var label = '';
     if (!tier.next) {
-        // Already at max tier
-        barFill.style.width = '100%';
-        label.textContent = 'Lowest rate unlocked';
-        priceLabel.textContent = 'SmartRent ' + savingsPct + '%';
-        return;
+        label = 'Max tier — saving ' + savingsPct + '%';
+    } else {
+        var daysLeft = tier.next.days - V0_STREAK.currentDays;
+        label = daysLeft + 'd to ₹' + tier.next.rate + '/day';
     }
 
-    var prevDays = tier.current ? tier.current.days : 0;
-    var nextDays = tier.next.days;
-    var progress = ((V0_STREAK.currentDays - prevDays) / (nextDays - prevDays)) * 100;
-    progress = Math.min(Math.max(progress, 0), 100);
+    return '<div class="v0-mini-progress">' +
+        '<div class="v0-mini-bar"><div class="v0-mini-fill" style="width:' + overall + '%"></div></div>' +
+        '<div class="v0-mini-label">' + label + '</div>' +
+        '</div>';
+}
 
-    barFill.style.width = progress + '%';
+// ========== LAYOUT A: Frame the card ==========
+function renderLayoutA() {
+    var wrapper = document.getElementById('v0-card-wrapper');
+    wrapper.className = 'v0-card-wrapper layout-a';
 
-    var daysLeft = nextDays - V0_STREAK.currentDays;
-    var nextSavingsPct = Math.round(((V0_STREAK.baseRate - tier.next.rate) / V0_STREAK.baseRate) * 100);
+    // Top: streak badge on top border
+    var top = document.getElementById('v0-sr-top');
+    top.style.display = '';
+    top.innerHTML = '<div class="v0-frame-top">' +
+        '<div class="v0-streak-badge">' + buildBadgeHTML() + '</div>' +
+        '<button class="v0-info-trigger-circle" onclick="event.stopPropagation(); openExplainer()" aria-label="About SmartRent">' +
+            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4M8 5.5v-.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+        '</button></div>';
 
-    label.textContent = daysLeft + ' days to ₹' + tier.next.rate + '/day';
-    priceLabel.textContent = 'SmartRent ' + savingsPct + '% → ' + nextSavingsPct + '%';
+    // Bottom: milestone track on bottom border
+    var bottom = document.getElementById('v0-sr-bottom');
+    bottom.style.display = '';
+    bottom.innerHTML = buildMilestoneTrackHTML(false);
+
+    // Hide inner zones
+    document.getElementById('v0-sr-inner-top').style.display = 'none';
+    document.getElementById('v0-sr-inner-bottom').style.display = 'none';
+}
+
+// ========== LAYOUT B: Unified top banner ==========
+function renderLayoutB() {
+    var wrapper = document.getElementById('v0-card-wrapper');
+    wrapper.className = 'v0-card-wrapper layout-b';
+
+    // Inner top: badge + inline milestones
+    var innerTop = document.getElementById('v0-sr-inner-top');
+    innerTop.style.display = '';
+    innerTop.innerHTML = '<div class="v0-unified-top">' +
+        '<div class="v0-unified-top-header">' +
+            '<div class="v0-streak-badge">' + buildBadgeHTML() + '</div>' +
+            '<button class="v0-info-trigger-circle" onclick="event.stopPropagation(); openExplainer()" aria-label="About SmartRent">' +
+                '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4M8 5.5v-.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+            '</button></div>' +
+        buildMilestoneTrackHTML(true) +
+        '</div>';
+
+    // Hide outer zones and inner bottom
+    document.getElementById('v0-sr-top').style.display = 'none';
+    document.getElementById('v0-sr-bottom').style.display = 'none';
+    document.getElementById('v0-sr-inner-bottom').style.display = 'none';
+}
+
+// ========== LAYOUT C: Unified bottom only ==========
+function renderLayoutC() {
+    var wrapper = document.getElementById('v0-card-wrapper');
+    wrapper.className = 'v0-card-wrapper layout-c';
+
+    // Inner bottom: fire icon integrated into milestone section
+    var innerBottom = document.getElementById('v0-sr-inner-bottom');
+    innerBottom.style.display = '';
+    innerBottom.innerHTML = '<div class="v0-unified-bottom">' +
+        '<div class="v0-unified-bottom-header">' +
+            '<dotlottie-wc src="../Fire Streak Orange.lottie" autoplay loop class="v0-streak-lottie-sm"></dotlottie-wc>' +
+            '<span class="v0-unified-bottom-title">SmartRent: Day ' + V0_STREAK.currentDays + '</span>' +
+            '<button class="v0-info-trigger-circle" onclick="event.stopPropagation(); openExplainer()" aria-label="About SmartRent">' +
+                '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4M8 5.5v-.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+            '</button></div>' +
+        buildMilestoneTrackHTML(false) +
+        '</div>';
+
+    // Hide everything else
+    document.getElementById('v0-sr-top').style.display = 'none';
+    document.getElementById('v0-sr-bottom').style.display = 'none';
+    document.getElementById('v0-sr-inner-top').style.display = 'none';
+}
+
+// ========== LAYOUT D: Floating collar ==========
+function renderLayoutD() {
+    var wrapper = document.getElementById('v0-card-wrapper');
+    wrapper.className = 'v0-card-wrapper layout-d';
+
+    // Top: collar that straddles the card edge
+    var top = document.getElementById('v0-sr-top');
+    top.style.display = '';
+    top.innerHTML = '<div class="v0-collar">' +
+        '<dotlottie-wc src="../Fire Streak Orange.lottie" autoplay loop class="v0-streak-lottie-sm"></dotlottie-wc>' +
+        '<span class="v0-collar-text">SmartRent: Day ' + V0_STREAK.currentDays + '</span>' +
+        buildMiniProgressHTML() +
+        '<button class="v0-info-trigger-circle v0-collar-info" onclick="event.stopPropagation(); openExplainer()" aria-label="About SmartRent">' +
+            '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4M8 5.5v-.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+        '</button></div>';
+
+    // Hide everything else
+    document.getElementById('v0-sr-bottom').style.display = 'none';
+    document.getElementById('v0-sr-inner-top').style.display = 'none';
+    document.getElementById('v0-sr-inner-bottom').style.display = 'none';
+}
+
+// ========== LAYOUT E: Unified warm header (badge + milestones in card top) ==========
+function renderLayoutE() {
+    var wrapper = document.getElementById('v0-card-wrapper');
+    wrapper.className = 'v0-card-wrapper layout-e';
+
+    // Inner top: warm zone with large capsule badge + milestones below
+    var innerTop = document.getElementById('v0-sr-inner-top');
+    innerTop.style.display = '';
+    innerTop.innerHTML = '<div class="v0-warm-header">' +
+        '<div class="v0-warm-header-row">' +
+            '<div class="v0-warm-badge">' +
+                '<dotlottie-wc src="../Fire Streak Orange.lottie" autoplay loop class="v0-streak-lottie"></dotlottie-wc>' +
+                '<span class="v0-warm-badge-text">SmartRent: Day ' + V0_STREAK.currentDays + '</span>' +
+            '</div>' +
+            '<button class="v0-info-trigger-circle" onclick="event.stopPropagation(); openExplainer()" aria-label="About SmartRent">' +
+                '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4M8 5.5v-.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+            '</button>' +
+        '</div>' +
+        '<div class="v0-warm-milestones">' + buildMilestoneTrackHTML(false) + '</div>' +
+    '</div>';
+
+    // Hide all other zones
+    document.getElementById('v0-sr-top').style.display = 'none';
+    document.getElementById('v0-sr-bottom').style.display = 'none';
+    document.getElementById('v0-sr-inner-bottom').style.display = 'none';
+}
+
+function switchLayout(layout) {
+    currentLayout = layout;
+
+    // Update active button
+    document.querySelectorAll('.v0-layout-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.textContent.charAt(0).toLowerCase() === layout);
+    });
+
+    // Render selected layout
+    if (layout === 'a') renderLayoutA();
+    else if (layout === 'b') renderLayoutB();
+    else if (layout === 'c') renderLayoutC();
+    else if (layout === 'd') renderLayoutD();
+    else if (layout === 'e') renderLayoutE();
+}
+
+function renderStreakBadge() {
+    // Now handled by switchLayout
+}
+
+function renderProgressBar() {
+    // Now handled by switchLayout
+    switchLayout(currentLayout);
 }
 
 function getDurationDays(duration) {

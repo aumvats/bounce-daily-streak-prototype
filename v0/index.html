@@ -27,62 +27,46 @@
         <!-- Page title -->
         <div class="v0-page-title">Booking Details</div>
 
-        <!-- Booking card -->
-        <div class="v0-booking-card">
-            <!-- Streak badge + info icon row -->
-            <div class="v0-streak-row" id="v0-streak-section">
-                <div class="v0-streak-badge" onclick="openExplainer()">
-                    <dotlottie-wc
-                        src="../Fire Streak Orange.lottie"
-                        autoplay loop
-                        class="v0-streak-lottie"
-                        id="v0-streak-lottie"
-                    ></dotlottie-wc>
-                    <span class="v0-streak-text" id="v0-streak-count">SmartRent: Day 0</span>
+        <!-- Booking card wrapper -->
+        <div class="v0-card-wrapper" id="v0-card-wrapper">
+            <!-- Top SmartRent zone (used by A, D) -->
+            <div class="v0-sr-top" id="v0-sr-top" onclick="openExplainer()"></div>
+
+            <div class="v0-booking-card" id="v0-booking-card">
+                <!-- Inner top SmartRent zone (used by B) -->
+                <div class="v0-sr-inner-top" id="v0-sr-inner-top" onclick="openExplainer()"></div>
+
+                <!-- Tags -->
+                <div class="v0-tag-row">
+                    <span class="v0-tag">High Speed Scooter</span>
+                    <span class="v0-tag">KA 01 AV 2848</span>
                 </div>
-                <button class="v0-info-trigger-circle" onclick="openExplainer()" aria-label="About SmartRent">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 7v4M8 5.5v-.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
-                </button>
+
+                <!-- Two-column body -->
+                <div class="v0-card-body">
+                    <div class="v0-card-col">
+                        <div class="v0-card-label">Validity</div>
+                        <div class="v0-card-value">25 July, 5:28 PM</div>
+                        <div class="v0-countdown" id="v0-countdown">Booking expires until 14:17:28</div>
+                    </div>
+                    <div class="v0-card-col">
+                        <div class="v0-card-label">KM left</div>
+                        <div class="v0-km-value">127<span class="v0-km-unit">KM</span></div>
+                    </div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="v0-card-actions">
+                    <button class="v0-btn v0-btn-primary" onclick="goToPlans()">Renew Plan</button>
+                    <button class="v0-btn v0-btn-secondary" onclick="alert('Top Up coming soon!')">Top Up</button>
+                </div>
+
+                <!-- Inner bottom SmartRent zone (used by C) -->
+                <div class="v0-sr-inner-bottom" id="v0-sr-inner-bottom" onclick="openExplainer()"></div>
             </div>
 
-            <!-- Tags -->
-            <div class="v0-tag-row">
-                <span class="v0-tag">High Speed Scooter</span>
-                <span class="v0-tag">KA 01 AV 2848</span>
-            </div>
-
-            <!-- Two-column body -->
-            <div class="v0-card-body">
-                <div class="v0-card-col">
-                    <div class="v0-card-label">Validity</div>
-                    <div class="v0-card-value">25 July, 5:28 PM</div>
-                    <div class="v0-countdown" id="v0-countdown">Booking expires until 14:17:28</div>
-                </div>
-                <div class="v0-card-col">
-                    <div class="v0-card-label">KM left</div>
-                    <div class="v0-km-value">127<span class="v0-km-unit">KM</span></div>
-                </div>
-            </div>
-
-            <!-- Action buttons -->
-            <div class="v0-card-actions">
-                <button class="v0-btn v0-btn-primary" onclick="goToPlans()">Renew Plan</button>
-                <button class="v0-btn v0-btn-secondary" onclick="alert('Top Up coming soon!')">Top Up</button>
-            </div>
-
-            <!-- Progress bar to next tier -->
-            <div class="v0-progress-section" id="v0-progress-section" onclick="openExplainer()">
-                <div class="v0-progress-meta">
-                    <span class="v0-progress-label" id="v0-progress-label">13 days to ₹270/day</span>
-                    <span class="v0-progress-price" id="v0-progress-price">₹900/mo saved</span>
-                </div>
-                <div class="v0-progress-bar">
-                    <div class="v0-progress-fill" id="v0-progress-fill"></div>
-                </div>
-            </div>
+            <!-- Bottom SmartRent zone (used by A) -->
+            <div class="v0-sr-bottom" id="v0-sr-bottom" onclick="openExplainer()"></div>
         </div>
     </div>
 
@@ -637,6 +621,18 @@
             <button class="v0-got-it-btn" onclick="closeExplainer()">Got It!</button>
         </div>
         -->
+    </div>
+
+    <!-- Layout switcher (prototype only, fixed footer) -->
+    <div class="v0-layout-switcher">
+        <div class="v0-layout-switcher-label">SmartRent layout</div>
+        <div class="v0-layout-switcher-btns">
+            <button class="v0-layout-btn active" onclick="switchLayout('a')">A</button>
+            <button class="v0-layout-btn" onclick="switchLayout('b')">B</button>
+            <button class="v0-layout-btn" onclick="switchLayout('c')">C</button>
+            <button class="v0-layout-btn" onclick="switchLayout('d')">D</button>
+            <button class="v0-layout-btn" onclick="switchLayout('e')">E</button>
+        </div>
     </div>
 
     <!-- Script -->
