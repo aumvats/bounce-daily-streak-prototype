@@ -416,6 +416,157 @@ function renderLayoutE() {
     document.getElementById('v0-sr-inner-bottom').style.display = 'none';
 }
 
+// ========== LAYOUT F: Simple benefit-first (CTO feedback) ==========
+function renderLayoutF() {
+    var wrapper = document.getElementById('v0-card-wrapper');
+    wrapper.className = 'v0-card-wrapper layout-f';
+
+    var tier = getStreakTier(V0_STREAK.currentDays);
+    var currentRate = getCurrentRate();
+    var days = V0_STREAK.currentDays;
+
+    // Build the benefit message
+    var rateHTML = '';
+    var subtitleHTML = '';
+    var nudgeHTML = '';
+
+    if (currentRate < V0_STREAK.baseRate) {
+        // User has a discount
+        rateHTML = '<span class="v0-bf-strike">' + V0_STREAK.baseRate + '/day</span>' +
+            '<span class="v0-bf-rate">' + currentRate + '/day</span>';
+        subtitleHTML = 'Your reward for ' + days + ' days with Bounce';
+    } else {
+        // No discount yet
+        rateHTML = '<span class="v0-bf-rate">' + V0_STREAK.baseRate + '/day</span>';
+        subtitleHTML = days + ' days with Bounce — keep going!';
+    }
+
+    if (tier.next) {
+        var daysLeft = tier.next.days - days;
+        nudgeHTML = '<div class="v0-bf-nudge">' + daysLeft + ' more days to unlock ₹' + tier.next.rate + '/day</div>';
+    } else {
+        nudgeHTML = '<div class="v0-bf-nudge v0-bf-nudge--max">Lowest rate unlocked</div>';
+    }
+
+    var innerTop = document.getElementById('v0-sr-inner-top');
+    innerTop.style.display = '';
+    innerTop.innerHTML = '<div class="v0-benefit-first">' +
+        '<div class="v0-bf-main">' +
+            '<div class="v0-bf-left">' +
+                '<dotlottie-wc src="../Fire Streak Orange.lottie" autoplay loop class="v0-streak-lottie"></dotlottie-wc>' +
+            '</div>' +
+            '<div class="v0-bf-content">' +
+                '<div class="v0-bf-prices">₹' + rateHTML + '</div>' +
+                '<div class="v0-bf-subtitle">' + subtitleHTML + '</div>' +
+            '</div>' +
+            '<button class="v0-info-trigger-circle" onclick="event.stopPropagation(); openExplainer()" aria-label="About SmartRent">' +
+                '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4M8 5.5v-.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+            '</button>' +
+        '</div>' +
+        nudgeHTML +
+    '</div>';
+
+    // Hide all other zones
+    document.getElementById('v0-sr-top').style.display = 'none';
+    document.getElementById('v0-sr-bottom').style.display = 'none';
+    document.getElementById('v0-sr-inner-bottom').style.display = 'none';
+}
+
+// ========== LAYOUT G: Minimal one-liner ==========
+function renderLayoutG() {
+    var wrapper = document.getElementById('v0-card-wrapper');
+    wrapper.className = 'v0-card-wrapper layout-g';
+
+    var currentRate = getCurrentRate();
+    var days = V0_STREAK.currentDays;
+    var hasDiscount = currentRate < V0_STREAK.baseRate;
+
+    var priceHTML = hasDiscount
+        ? '<span class="v0-mg-strike">₹' + V0_STREAK.baseRate + '</span> <span class="v0-mg-rate">₹' + currentRate + '/day</span>'
+        : '<span class="v0-mg-rate">₹' + V0_STREAK.baseRate + '/day</span>';
+
+    var tagHTML = '<span class="v0-mg-tag">SmartRent</span>';
+
+    var innerTop = document.getElementById('v0-sr-inner-top');
+    innerTop.style.display = '';
+    innerTop.innerHTML = '<div class="v0-minimal-g">' +
+        '<dotlottie-wc src="../Fire Streak Orange.lottie" autoplay loop class="v0-mg-lottie"></dotlottie-wc>' +
+        '<div class="v0-mg-body">' + priceHTML + tagHTML + '</div>' +
+        '<button class="v0-info-trigger-circle" onclick="event.stopPropagation(); openExplainer()" aria-label="About SmartRent">' +
+            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4M8 5.5v-.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+        '</button>' +
+    '</div>';
+
+    document.getElementById('v0-sr-top').style.display = 'none';
+    document.getElementById('v0-sr-bottom').style.display = 'none';
+    document.getElementById('v0-sr-inner-bottom').style.display = 'none';
+}
+
+// ========== LAYOUT H: Savings-focused one-liner ==========
+function renderLayoutH() {
+    var wrapper = document.getElementById('v0-card-wrapper');
+    wrapper.className = 'v0-card-wrapper layout-h';
+
+    var currentRate = getCurrentRate();
+    var hasDiscount = currentRate < V0_STREAK.baseRate;
+    var saving = V0_STREAK.baseRate - currentRate;
+
+    var textHTML = hasDiscount
+        ? '<span class="v0-sh-text">Saving <strong>\u20B9' + saving + '/day</strong> with SmartRent</span>'
+        : '<span class="v0-sh-text">Stay longer, pay less with <strong>SmartRent</strong></span>';
+
+    var innerTop = document.getElementById('v0-sr-inner-top');
+    innerTop.style.display = '';
+    innerTop.innerHTML = '<div class="v0-savings-h">' +
+        '<dotlottie-wc src="../Fire Streak Orange.lottie" autoplay loop class="v0-sh-lottie"></dotlottie-wc>' +
+        textHTML +
+        '<button class="v0-info-trigger-circle" onclick="event.stopPropagation(); openExplainer()" aria-label="About SmartRent">' +
+            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4M8 5.5v-.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+        '</button>' +
+    '</div>';
+
+    document.getElementById('v0-sr-top').style.display = 'none';
+    document.getElementById('v0-sr-bottom').style.display = 'none';
+    document.getElementById('v0-sr-inner-bottom').style.display = 'none';
+}
+
+// ========== LAYOUT I: Pure status badge ==========
+function renderLayoutI() {
+    var wrapper = document.getElementById('v0-card-wrapper');
+    wrapper.className = 'v0-card-wrapper layout-i';
+
+    var innerTop = document.getElementById('v0-sr-inner-top');
+    innerTop.style.display = '';
+    innerTop.innerHTML = '<div class="v0-badge-i">' +
+        '<dotlottie-wc src="../Fire Streak Orange.lottie" autoplay loop class="v0-bi-lottie"></dotlottie-wc>' +
+        '<span class="v0-bi-label">SmartRent</span>' +
+        '<button class="v0-info-trigger-circle" onclick="event.stopPropagation(); openExplainer()" aria-label="About SmartRent">' +
+            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4M8 5.5v-.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+        '</button>' +
+    '</div>';
+
+    document.getElementById('v0-sr-top').style.display = 'none';
+    document.getElementById('v0-sr-bottom').style.display = 'none';
+    document.getElementById('v0-sr-inner-bottom').style.display = 'none';
+}
+
+// ========== LAYOUT J: Just the streak label ==========
+function renderLayoutJ() {
+    var wrapper = document.getElementById('v0-card-wrapper');
+    wrapper.className = 'v0-card-wrapper layout-j';
+
+    var innerTop = document.getElementById('v0-sr-inner-top');
+    innerTop.style.display = '';
+    innerTop.innerHTML = '<div class="v0-just-label">' +
+        '<dotlottie-wc src="../Fire Streak Orange.lottie" autoplay loop class="v0-jl-lottie"></dotlottie-wc>' +
+        '<span class="v0-jl-text">SmartRent: Day ' + V0_STREAK.currentDays + '</span>' +
+    '</div>';
+
+    document.getElementById('v0-sr-top').style.display = 'none';
+    document.getElementById('v0-sr-bottom').style.display = 'none';
+    document.getElementById('v0-sr-inner-bottom').style.display = 'none';
+}
+
 function switchLayout(layout) {
     currentLayout = layout;
 
@@ -430,6 +581,11 @@ function switchLayout(layout) {
     else if (layout === 'c') renderLayoutC();
     else if (layout === 'd') renderLayoutD();
     else if (layout === 'e') renderLayoutE();
+    else if (layout === 'f') renderLayoutF();
+    else if (layout === 'g') renderLayoutG();
+    else if (layout === 'h') renderLayoutH();
+    else if (layout === 'i') renderLayoutI();
+    else if (layout === 'j') renderLayoutJ();
 }
 
 function renderStreakBadge() {

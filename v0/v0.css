@@ -408,6 +408,231 @@ body {
     padding: 0 2px;
 }
 
+/* ===== LAYOUT F: Simple benefit-first ===== */
+.layout-f .v0-sr-inner-top {
+    margin-bottom: 16px;
+}
+
+.layout-f .v0-benefit-first {
+    background: linear-gradient(135deg, #fffbeb, #fff7ed);
+    border: 1px solid #fed7aa;
+    border-radius: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+}
+
+.layout-f .v0-bf-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.layout-f .v0-bf-left {
+    flex-shrink: 0;
+}
+
+.layout-f .v0-bf-left .v0-streak-lottie {
+    width: 36px;
+    height: 36px;
+}
+
+.layout-f .v0-bf-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.layout-f .v0-bf-prices {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #1d1d1f;
+    letter-spacing: -0.3px;
+}
+
+.layout-f .v0-bf-strike {
+    font-size: 14px;
+    font-weight: 500;
+    color: #aaa;
+    text-decoration: line-through;
+}
+
+.layout-f .v0-bf-rate {
+    color: #1d1d1f;
+}
+
+.layout-f .v0-bf-subtitle {
+    font-size: 12px;
+    font-weight: 500;
+    color: #92400e;
+    margin-top: 2px;
+}
+
+.layout-f .v0-bf-nudge {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(251, 191, 36, 0.3);
+    font-size: 12px;
+    font-weight: 600;
+    color: #b45309;
+    text-align: center;
+}
+
+.layout-f .v0-bf-nudge--max {
+    color: #16a34a;
+}
+
+/* ===== LAYOUT G: Minimal one-liner ===== */
+.layout-g .v0-sr-inner-top {
+    margin-bottom: 14px;
+}
+
+.layout-g .v0-minimal-g {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fffbeb;
+    border: 1px solid #fed7aa;
+    border-radius: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+}
+
+.layout-g .v0-mg-lottie {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.layout-g .v0-mg-body {
+    flex: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.layout-g .v0-mg-strike {
+    font-size: 13px;
+    color: #aaa;
+    text-decoration: line-through;
+    font-weight: 500;
+}
+
+.layout-g .v0-mg-rate {
+    font-size: 16px;
+    font-weight: 800;
+    color: #1d1d1f;
+}
+
+.layout-g .v0-mg-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: #92400e;
+    background: rgba(251, 191, 36, 0.2);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* ===== LAYOUT H: Savings-focused one-liner ===== */
+.layout-h .v0-sr-inner-top {
+    margin-bottom: 14px;
+}
+
+.layout-h .v0-savings-h {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fffbeb;
+    border: 1px solid #fed7aa;
+    border-radius: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+}
+
+.layout-h .v0-sh-lottie {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.layout-h .v0-sh-text {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    color: #92400e;
+    line-height: 1.3;
+}
+
+.layout-h .v0-sh-text strong {
+    font-weight: 700;
+    color: #1d1d1f;
+}
+
+/* ===== LAYOUT I: Pure status badge ===== */
+.layout-i .v0-sr-inner-top {
+    margin-bottom: 14px;
+}
+
+.layout-i .v0-badge-i {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fffbeb;
+    border: 1px solid #fed7aa;
+    border-radius: 20px;
+    padding: 7px 12px 7px 8px;
+    cursor: pointer;
+}
+
+.layout-i .v0-bi-lottie {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.layout-i .v0-bi-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #92400e;
+    letter-spacing: -0.2px;
+}
+
+.layout-i .v0-info-trigger-circle {
+    width: 24px;
+    height: 24px;
+}
+
+/* ===== LAYOUT J: Just the streak label ===== */
+.layout-j .v0-sr-inner-top {
+    margin-bottom: 14px;
+}
+
+.layout-j .v0-just-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fffbeb;
+    border: 1px solid #fed7aa;
+    border-radius: 20px;
+    padding: 7px 14px 7px 8px;
+    cursor: pointer;
+}
+
+.layout-j .v0-jl-lottie {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.layout-j .v0-jl-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: #92400e;
+    letter-spacing: -0.2px;
+}
+
 .v0-milestone-track {
     display: flex;
     align-items: flex-start;
